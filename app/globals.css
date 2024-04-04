@@ -1,12 +1,90 @@
 /* CSS GLOBAL. ADD VARIÁVEIS, FONTES, ETC. */
-/* nao irá funcionar css em elementos sem classe ou ids/nome assim como o acima nos demais
-arquivos de css devido as regras do nextjs. qql duvida por favor consultar a documentação ou ver algum vídeo
-doc next: https://nextjs.org/docs */
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 body{
   margin: 0;
   font-family: 'Inter';
-  margin-bottom: 12em;
+  height: 100vh;
+}
+
+.menu {
+  background-color: #7E2726;
+  min-height: 100%;
+  padding: 1.8em;
+  box-sizing: border-box;
+}
+
+.menu span{
+  display: block;
+  margin-bottom: 2.2em;
+}
+
+.ant-input, .ant-picker{
+  padding: 0.5em;
+}
+
+.ant-input-number{
+  padding: 0.2em;
+}
+
+.ant-select-selector{
+  padding: 1.3em 0.5em !important;
+}
+
+.ant-picker-calendar-header .ant-select-selector{
+  padding: 0 11px !important;
+}
+
+.main-internal {
+  display: flex;
+  justify-content: space-between;
+  min-height: 100%;
+  max-height: 100%;
+  overflow-y: hidden;
+}
+
+.page {
+  width: 94%;
+  padding: 4em 4em 0 4em;
+  overflow-y: scroll;
+}
+
+.title{
+  font-size: 24px;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 2em;
+}
+
+.table {
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  overflow: hidden;
+  border-collapse: separate;
+}
+
+.table table tr th {
+  font-size: 12px;
+}
+
+.table table tr td {
+  font-size: 15px;
+}
+
+.calendar-reservation{
+  background-color: #D2AE6D;
+  border-radius: 6px;
+  padding: 0 1em;
+  margin-bottom: 0.5em;
+}
+
+.notes-month{
+  border-radius: 6px;
+  padding: 0 1em;
+  color: #fff;
+  background-color: #7E2726;
+}
+
+.ant-form-item-explain-error{
+  margin-bottom: 1em;
 }

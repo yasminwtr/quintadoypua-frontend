@@ -1,0 +1,224 @@
+.welcome {
+    display: flex;
+    align-items: center;
+    width: 85%;
+    margin: 0 auto 6em auto;
+    justify-content: space-between;
+}
+
+.welcome div {
+    width: 50%;
+}
+
+.welcome span:nth-child(1) {
+    font-weight: 800;
+    font-size: 45px;
+}
+
+.welcome span:nth-child(2) {
+    color: #7F7D7D;
+    display: block;
+    margin: 1em 0 1.5em 0;
+}
+
+.welcome button {
+    background-color: #F79F1A;
+    color: #fff;
+    border: none;
+    padding: 1em;
+    border-radius: 12px;
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.rooms,
+.reviews_container {
+    width: 90%;
+    margin: auto;
+}
+
+.header_rooms {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header_rooms div span:nth-child(1) {
+    font-weight: 600;
+    font-size: 35px;
+    display: block;
+    margin-bottom: 0.2em;
+}
+
+.header_rooms span:nth-child(2) {
+    color: #7F7D7D;
+}
+
+.header_rooms button {
+    background-color: #046E1B;
+    color: #fff;
+    border: none;
+    padding: 0.8em 1.5em;
+    border-radius: 12px;
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.options {
+    margin-top: 3em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.room {
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    width: 22%;
+}
+
+.room div:nth-child(1) {
+    background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: 100%;
+    width: 100%;
+    height: 150px;
+    border-radius: 10px 10px 0 0;
+}
+
+.room div:nth-child(2) {
+    padding: 1em 1em 2em 1em;
+}
+
+.room div:nth-child(2) span:nth-child(1) {
+    font-weight: 600;
+    font-size: 20px;
+    display: block;
+}
+
+.room div:nth-child(2) span:nth-child(2) {
+    font-size: 14px;
+    text-decoration: underline;
+    color: #F79F1A;
+    cursor: pointer;
+}
+
+.about {
+    background-image: url('https://images.unsplash.com/photo-1501786223405-6d024d7c3b8d?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    width: 100%;
+    background-size: 100%;
+    padding: 8em 5em;
+    margin: 8em 0;
+    background-position-y: 1002px;
+    box-sizing: border-box;
+}
+
+.about div {
+    background-color: #fff;
+    padding: 2em 2em 3em 2em;
+    border-radius: 10px;
+    width: 30%;
+    margin-left: auto;
+    position: relative;
+}
+
+.about div span:nth-child(1) {
+    font-weight: 600;
+    font-size: 24px;
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.about div span:nth-child(2) {
+    font-size: 15px;
+}
+
+.about button {
+    background-color: #F79F1A;
+    color: #fff;
+    border: none;
+    padding: 0.8em 2em;
+    border-radius: 18px;
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+    position: absolute;
+    bottom: -18px;
+    left: 2em;
+}
+
+.title_reviews {
+    font-weight: 600;
+    font-size: 35px;
+    display: block;
+    text-align: center;
+}
+
+.reviews {
+    margin: 3.5em 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.review {
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 2em;
+    width: 40%;
+}
+
+.reviews_user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.reviews_user div:nth-child(1) {
+    background-color: rgb(54, 33, 33);
+    border-radius: 100%;
+    width: 55px;
+    height: 55px;
+    margin-right: 0.8em;
+}
+
+.reviews_user div:nth-child(2) span:nth-child(1) {
+    font-weight: 600;
+    font-size: 20px;
+    display: block;
+    margin-bottom: 0.1em;
+}
+
+.reviews_user div:nth-child(2) span:nth-child(2) {
+    color: #7F7D7D;
+}
+
+.stars {
+    margin-bottom: 0.4em;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pagination div {
+    width: 88%;
+    height: 8px;
+    border-radius: 5px;
+    background-color: #046E1B;
+}
+
+.pagination button {
+    background-color: transparent;
+    border: 1px solid #a9a9a9;
+    color: #a9a9a9;
+    padding: 0.8em 1em;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
