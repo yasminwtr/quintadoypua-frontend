@@ -1,5 +1,5 @@
 Para rodar o projeto certifique-se de ter instalado na sua máquina o Node.
-
+Exemplo alteração
 Assim que clonar o repositório, para rodar a aplicação vá no terminal e digite:
 ```bash
 npm run dev
