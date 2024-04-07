@@ -1,4 +1,5 @@
-import LateralMenu from "@/app/components/(internalPages)/LateralMenu"
+"use client"
+import LateralMenu from "@/app/components/LateralMenu/LateralMenu"
 import { Calendar } from "antd";
 
 export default function CalendarPage() {

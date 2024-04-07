@@ -1,7 +1,7 @@
 /* CSS GLOBAL. ADD VARIÁVEIS, FONTES, ETC. */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-body{
+body {
   margin: 0;
   font-family: 'Inter';
   height: 100vh;
@@ -14,25 +14,31 @@ body{
   box-sizing: border-box;
 }
 
-.menu span{
+.menu span {
   display: block;
   margin-bottom: 2.2em;
 }
 
-.ant-input, .ant-picker{
+.ant-input,
+.ant-picker {
   padding: 0.5em;
 }
 
-.ant-input-number{
-  padding: 0.2em;
+.ant-input-number {
+  padding: 0.2em 0;
 }
 
-.ant-select-selector{
+.ant-select-selector {
   padding: 1.3em 0.5em !important;
 }
 
-.ant-picker-calendar-header .ant-select-selector{
+.ant-picker-calendar-header .ant-select-selector,
+.ant-pagination-options .ant-select-selector {
   padding: 0 11px !important;
+}
+
+.ant-pagination {
+  margin-right: 20px !important;
 }
 
 .main-internal {
@@ -45,11 +51,11 @@ body{
 
 .page {
   width: 94%;
-  padding: 4em 4em 0 4em;
+  padding: 4em 4em 4em 4em;
   overflow-y: scroll;
 }
 
-.title{
+.title {
   font-size: 24px;
   font-weight: 600;
   display: block;
@@ -71,20 +77,20 @@ body{
   font-size: 15px;
 }
 
-.calendar-reservation{
+.calendar-reservation {
   background-color: #D2AE6D;
   border-radius: 6px;
   padding: 0 1em;
   margin-bottom: 0.5em;
 }
 
-.notes-month{
+.notes-month {
   border-radius: 6px;
   padding: 0 1em;
   color: #fff;
   background-color: #7E2726;
 }
 
-.ant-form-item-explain-error{
+.ant-form-item-explain-error {
   margin-bottom: 1em;
 }

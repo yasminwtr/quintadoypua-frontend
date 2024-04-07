@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { TbEditCircle } from "react-icons/tb";
 import { Table } from 'antd';
-import LateralMenu from "@/app/components/(internalPages)/LateralMenu"
-import EditEmployee from '@/app/components/(internalPages)/EditEmployee';
+import LateralMenu from "@/app/components/LateralMenu/LateralMenu"
+import EditEmployee from '@/app/components/EmployeeDrawer/EditEmployee';
 
 export default function EmployeeManagement() {
   const [open, setOpen] = useState(false);
@@ -32,14 +32,6 @@ export default function EmployeeManagement() {
       dataIndex: 'cargo',
     },
     {
-      title: 'DATA ADMISSÃO',
-      dataIndex: 'dataAdmissao',
-      sorter: {
-        compare: (a, b) => a.dataAdmissao - b.dataAdmissao,
-        multiple: 3,
-      },
-    },
-    {
       title: 'AÇÕES',
       dataIndex: 'acao',
     },
@@ -50,7 +42,6 @@ export default function EmployeeManagement() {
       id: '18',
       name: 'Yasmin Titow',
       cargo: 'Desenvolvedora Web',
-      dataAdmissao: '18/02/2024',
       acao: <TbEditCircle size={20} color={'#29343F'} onClick={showDrawer} />,
     },
   ];

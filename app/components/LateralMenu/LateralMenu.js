@@ -8,7 +8,7 @@ import { FaCalendarCheck } from "react-icons/fa6";
 export default function LateralMenu() {
     return (
         <div className="menu">
-            <span>
+            {/* <span>
                 <Tooltip placement="right" title={'Calendário'}>
                     <FaCalendarCheck size={24} color="#fff" />
                 </Tooltip>
@@ -24,7 +24,7 @@ export default function LateralMenu() {
                 <Tooltip placement="right" title={'Funcionários'}>
                     <FaUserTie size={26} color="#fff" />
                 </Tooltip>
-            </span>
+            </span> */}
         </div>
     );
 }

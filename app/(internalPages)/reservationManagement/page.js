@@ -1,87 +1,42 @@
 "use client"
 import { useState } from 'react';
-import { TbEditCircle } from "react-icons/tb";
-import { Table } from 'antd';
-import LateralMenu from "@/app/components/(internalPages)/LateralMenu"
-import EditReservation from '@/app/components/(internalPages)/EditReservation';
+import { format } from 'date-fns';
+import { Table, Spin } from 'antd';
+import LateralMenu from "@/app/components/LateralMenu/LateralMenu"
+import useReservations from '@/app/hooks/useReservations';
+import { reservationColumns } from '@/app/utils/tablesColumns';
+import { TbEdit } from "react-icons/tb";
+import { StatusTag } from '@/app/utils/statusTags';
+import ReservationDrawer from '@/app/components/ReservationDrawer/Drawer';
 
 export default function ReservationManagement() {
+  const { reservations, loading, error } = useReservations();
   const [open, setOpen] = useState(false);
-  const showDrawer = () => {
+  const [selectedReservation, setSelectedReservation] = useState(null);
+
+  const showDrawer = (reservation) => {
+    setSelectedReservation(reservation)
     setOpen(true);
   };
+
   const onClose = () => {
+    setSelectedReservation(null)
     setOpen(false);
   };
 
-  const columns = [
-    {
-      title: 'RESERVA',
-      dataIndex: 'reserva',
-      sorter: {
-        compare: (a, b) => a.reserva - b.reserva,
-        multiple: 3,
-      },
-    },
-    {
-      title: 'DATA RESERVA',
-      dataIndex: 'dataReserva',
-      sorter: {
-        compare: (a, b) => a.dataReserva - b.dataReserva,
-        multiple: 3,
-      },
-    },
-    {
-      title: 'ACOMODAÇÃO',
-      dataIndex: 'acomodacao',
-    },
-    {
-      title: 'HÓSPEDE',
-      dataIndex: 'name',
-    },
-    {
-      title: 'CHECK-IN',
-      dataIndex: 'checkIn',
-      sorter: {
-        compare: (a, b) => a.checkIn - b.checkIn,
-        multiple: 3,
-      },
-    },
-    {
-      title: 'CHECK-OUT',
-      dataIndex: 'checkOut',
-      sorter: {
-        compare: (a, b) => a.checkOut - b.checkOut,
-        multiple: 3,
-      },
-    },
-    {
-      title: 'TOTAL',
-      dataIndex: 'total',
-    },
-    {
-      title: 'STATUS',
-      dataIndex: 'status',
-    },
-    {
-      title: 'AÇÕES',
-      dataIndex: 'acao',
-    },
-  ];
-  const data = [
-    {
-      key: '1',
-      reserva: '121',
-      dataReserva: '10/02',
-      acomodacao: 'Quarto Sacada',
-      name: 'Yasmin',
-      checkIn: '18/02',
-      checkOut: '19/02',
-      total: 'R$ 1200',
-      status: 'Finalizada',
-      acao: <TbEditCircle size={20} color={'#29343F'} onClick={showDrawer} />,
-    },
-  ];
+  const tableData = reservations.map(reservation => {
+    return {
+      key: reservation.id,
+      solicitationDate: format(reservation.solicitationdate, 'dd/MM/yyyy'),
+      room: reservation.name,
+      nameGuest: reservation.nameguest,
+      startDate: format(reservation.startdate, 'dd/MM/yyyy'),
+      endDate: format(reservation.enddate, 'dd/MM/yyyy'),
+      total: `R$ ${reservation.totalvalue}`,
+      status: <>{StatusTag(reservation.statusid)}</>,
+      actions: <TbEdit size={20} color={'#29343F'} onClick={() => showDrawer(reservation)} />
+    };
+  });
 
   return (
     <main className="main-internal">
@@ -90,9 +45,28 @@ export default function ReservationManagement() {
       <div className="page">
         <span className="title">Gerenciamento de Reservas</span>
 
-        <Table className="table" columns={columns} dataSource={data} />
+        <button onClick={() => showDrawer(null)}>Nova reserva</button>
 
-        <EditReservation open={open} onClose={onClose} />
+        {loading ?
+          <Spin fullscreen={true} />
+          :
+          <Table
+            className="table"
+            columns={reservationColumns}
+            dataSource={tableData}
+            pagination={{
+              total: reservations?.length,
+              showTotal: (total, range) => `${range[0]}-${range[1]} de ${total} reservas`,
+            }}
+          />
+        }
+
+        <ReservationDrawer
+          selectedReservation={selectedReservation}
+          open={open}
+          onClose={onClose}
+          setSelectedReservation={setSelectedReservation}
+        />
       </div>
     </main>
   );
