@@ -10,22 +10,6 @@ export const reservationColumns = [
         },
     },
     {
-        title: 'SOLICITADA',
-        dataIndex: 'solicitationDate',
-        sorter: {
-            compare: (a, b) => dayjs(a.solicitationDate, "DD/MM/YYYY").unix() - dayjs(b.solicitationDate, "DD/MM/YYYY").unix(),
-            multiple: 3,
-        },
-    },
-    {
-        title: 'ACOMODAÇÃO',
-        dataIndex: 'room',
-    },
-    {
-        title: 'HÓSPEDE',
-        dataIndex: 'nameGuest',
-    },
-    {
         title: 'INÍCIO ESTADIA',
         dataIndex: 'startDate',
         sorter: {
@@ -41,10 +25,22 @@ export const reservationColumns = [
             multiple: 3,
         },
     },
-    // {
-    //     title: 'TOTAL',
-    //     dataIndex: 'total',
-    // },
+    {
+        title: 'ACOMODAÇÃO',
+        dataIndex: 'room',
+    },
+    {
+        title: 'HÓSPEDE',
+        dataIndex: 'nameGuest',
+    },
+    {
+        title: 'SOLICITADA',
+        dataIndex: 'solicitationDate',
+        sorter: {
+            compare: (a, b) => dayjs(a.solicitationDate, "DD/MM/YYYY").unix() - dayjs(b.solicitationDate, "DD/MM/YYYY").unix(),
+            multiple: 3,
+        },
+    },
     {
         title: 'STATUS',
         dataIndex: 'status',
