@@ -51,7 +51,7 @@ body {
 
 .page {
   width: 94%;
-  padding: 4em 4em 4em 4em;
+  padding: 2em 4em 4em 4em;
   overflow-y: scroll;
 }
 
@@ -91,6 +91,16 @@ body {
   background-color: #7E2726;
 }
 
+.accomodation .ant-form-item-explain-error {
+  margin-top: 0.5em;
+}
+
 .ant-form-item-explain-error {
   margin-bottom: 1em;
+}
+
+.new{
+  display: flex;
+  margin: 0 0 1em auto;
+  
 }

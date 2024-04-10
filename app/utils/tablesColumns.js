@@ -41,10 +41,10 @@ export const reservationColumns = [
             multiple: 3,
         },
     },
-    {
-        title: 'TOTAL',
-        dataIndex: 'total',
-    },
+    // {
+    //     title: 'TOTAL',
+    //     dataIndex: 'total',
+    // },
     {
         title: 'STATUS',
         dataIndex: 'status',

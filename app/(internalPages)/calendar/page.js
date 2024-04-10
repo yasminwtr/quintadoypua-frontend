@@ -1,46 +1,62 @@
 "use client"
 import LateralMenu from "@/app/components/LateralMenu/LateralMenu"
 import { Calendar } from "antd";
+import { useState } from 'react';
+import ReservationDrawer from '@/app/components/ReservationDrawer/Drawer';
+import useReservations from '@/app/hooks/useReservations';
 
 export default function CalendarPage() {
-  const reservations = [
-    { id: 1, title: "Reserva 1", startDate: "2024-04-05", endDate: "2024-04-07" },
-    { id: 1, title: "Reserva 5", startDate: "2024-04-05", endDate: "2024-04-07" },
-    { id: 2, title: "Reserva 2", startDate: "2024-04-10", endDate: "2024-04-12" },
-    { id: 2, title: "Reserva 3", startDate: "2024-05-10", endDate: "2024-05-12" },
-    { id: 2, title: "Reserva 3", startDate: "2024-12-10", endDate: "2024-12-12" },
-  ];
+  const { confirmedReservations, loading, error } = useReservations();
+  const [open, setOpen] = useState(false);
+  const [selectedReservation, setSelectedReservation] = useState(null);
 
-  const dateCellRender = (value) => {
-    const formattedDate = value.format('YYYY-MM-DD');
-    const reservationsOnDate = reservations.filter(reservation => {
-      return formattedDate >= reservation.startDate && formattedDate <= reservation.endDate;
-    });
+  const showDrawer = (reservation) => {
+    setSelectedReservation(reservation)
+    setOpen(true);
+  };
 
-    return <>
-      {reservationsOnDate.map(reservation => (
-        <div className='calendar-reservation' key={reservation.id}>
-          {reservation.title}
-        </div>
-      ))}
+  const onClose = () => {
+    setOpen(false);
+    setSelectedReservation(null);
+  };
+
+  const reservations = confirmedReservations.map(reservation => {
+    return {
+      id: reservation.id,
+      clientid: reservation.id,
+      employeeid: reservation.id,
+      roomid: reservation.id,
+      startdate: reservation.startdate,
+      enddate: reservation.enddate,
+      solicitationdate: reservation.solicitationdate,
+      nameguest: reservation.nameguest,
+      contactguest: reservation.contactguest,
+      emailguest: reservation.emailguest,
+      observation: reservation.observation,
+      adults: reservation.adults,
+      children: reservation.children,
+      totalvalue: reservation.totalvalue,
+      statusid: reservation.statusid,
+      daily: reservation.daily,
+      title: `Reserva ${reservation.id}`,
+    };
+  });
+
+  const dateCellRender = (value) => (
+    <>
+      {reservations.filter(reservation => value.format('YYYY-MM-DD') >= reservation.startdate && value.format('YYYY-MM-DD') <= reservation.enddate)
+        .map(reservation => (
+          <div className='calendar-reservation' key={reservation.id} onClick={() => showDrawer(reservation)}>
+            {reservation.title}
+          </div>
+        ))}
     </>
-  };
+  );
 
-  const countReservationsForMonth = (year, month) => {
-    const reservationsInMonth = reservations.filter(reservation => {
-      const reservationStartDate = new Date(reservation.startDate);
-      return reservationStartDate.getFullYear() === year && reservationStartDate.getMonth() + 1 === month;
-    });
-
-    return reservationsInMonth.length;
-  };
+  const countReservationsForMonth = (year, month) => reservations.filter(reservation => new Date(reservation.startdate).getFullYear() === year && new Date(reservation.startdate).getMonth() + 1 === month).length;
 
   const monthCellRender = (value) => {
-    const year = value.year();
-    const month = value.month() + 1;
-
-    const reservationsCount = countReservationsForMonth(year, month);
-
+    const reservationsCount = countReservationsForMonth(value.year(), value.month() + 1);
     return reservationsCount > 0 ? (
       <div className='notes-month'>
         {reservationsCount} {reservationsCount === 1 ? 'reserva' : 'reservas'}
@@ -62,6 +78,13 @@ export default function CalendarPage() {
         <span className="title">Calendário de Reservas</span>
 
         <Calendar cellRender={cellRender} />
+
+        <ReservationDrawer
+          selectedReservation={selectedReservation}
+          open={open}
+          onClose={onClose}
+          setSelectedReservation={setSelectedReservation}
+        />
       </div>
     </main>
   );

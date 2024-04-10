@@ -1,6 +1,5 @@
 "use client"
 import dayjs from 'dayjs';
-import { useState, useEffect } from 'react';
 import { Col, DatePicker, Input, InputNumber, Form, Row, Select } from 'antd';
 import useRooms from '@/app/hooks/useRooms';
 import { StatusTag } from '@/app/utils/statusTags';
@@ -9,8 +8,6 @@ export default function EditReservation({ reservation, handleFormChange, form, c
     const { rooms } = useRooms();
     const adultsOptions = [...Array(newReservation?.maxGuest).keys()].map(num => num + 1);
     const childOptions = [...Array(newReservation?.maxGuest).keys()].map(num => num);
-
-    console.log(reservation);
 
     return (
         <Form
@@ -51,6 +48,7 @@ export default function EditReservation({ reservation, handleFormChange, form, c
                                 message: 'Selecione uma acomodação.',
                             },
                         ]}
+                        className='accomodation'
                     >
                         <Select disabled={!canEdit} labelInValue>
                             <Select.Option value='' title={{ daily: 0 }}>Selecione uma acomodação</Select.Option>
@@ -76,7 +74,7 @@ export default function EditReservation({ reservation, handleFormChange, form, c
                         rules={[
                             {
                                 required: true,
-                                message: 'Preencha o nome do hóspede responsável pela reserva.',
+                                message: 'Preencha o nome.',
                             },
                         ]}
                     >
@@ -91,8 +89,7 @@ export default function EditReservation({ reservation, handleFormChange, form, c
                         rules={[
                             {
                                 required: true,
-                                type: 'email',
-                                message: 'Preencha o e-mail correto do hóspede responsável pela reserva.',
+                                message: 'Preencha o e-mail.',
                             },
                         ]}
                     >
@@ -107,7 +104,7 @@ export default function EditReservation({ reservation, handleFormChange, form, c
                         rules={[
                             {
                                 required: true,
-                                message: 'Preencha o contato do hóspede responsável pela reserva.',
+                                message: 'Preencha o contato.',
                             },
                         ]}
                     >
@@ -139,7 +136,7 @@ export default function EditReservation({ reservation, handleFormChange, form, c
 
                 <Col span={8}>
                     <Form.Item
-                        name="childs"
+                        name="children"
                         label="Crianças (abaixo de 17 anos)"
                     >
                         <Select disabled={!canEdit}>
@@ -203,11 +200,10 @@ export default function EditReservation({ reservation, handleFormChange, form, c
 
                 <Col span={8}>
                     <Form.Item
-                        // name="totalValue"
                         label="Valor total"
                     >
                         <Input
-                            value={`R$ ${reservation ? reservation?.totalvalue : (newReservation?.days * newReservation?.daily)}`}
+                            value={`R$ ${reservation ? reservation?.totalvalue : (newReservation?.days * newReservation?.daily) || 0}`}
                             disabled
                         />
                     </Form.Item>
