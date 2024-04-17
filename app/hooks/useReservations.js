@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import api from '@/app/api/api';
+import { notification } from 'antd';
 
 const useReservations = () => {
     const [reservations, setReservations] = useState([]);
@@ -9,6 +10,15 @@ const useReservations = () => {
     const [reservationStatus, setReservationStatus] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [messageApi, contextHolder] = notification.useNotification();
+
+    const alertMessage = (type, message, description, placement) => {
+        messageApi[type]({
+            message: message,
+            description: description,
+            placement: placement ? placement : 'topRight',
+        });
+    };
 
     const fetchReservations = async () => {
         try {
@@ -44,80 +54,71 @@ const useReservations = () => {
         }
     };
 
-    const addReservation = async (reservation) => {
-        console.log(reservation);
+    const addReservation = async (reservation, onClose) => {
         try {
             const response = await api.post("/reservation/add", {
-                clientId: reservation.clientId,
-                employeeId: reservation.employeeId,
-                roomId: reservation.room,
-                startDate: dayjs(reservation.reservationTime[0]?.$d).format('YYYY-MM-DD'),
-                endDate: dayjs(reservation.reservationTime[1]?.$d).format('YYYY-MM-DD'),
-                nameGuest: reservation.guest,
-                emailGuest: reservation.email,
-                contactGuest: reservation.contact,
+                clientId: reservation.clientid,
+                employeeId: reservation.employeeid,
+                roomId: reservation.roomid,
+                startDate: dayjs(reservation.reservationtime[0]?.$d).format('YYYY-MM-DD'),
+                endDate: dayjs(reservation.reservationtime[1]?.$d).format('YYYY-MM-DD'),
+                nameGuest: reservation.nameguest,
+                emailGuest: reservation.emailguest,
+                contactGuest: reservation.contactguest,
                 observation: reservation.observation,
                 adults: reservation.adults,
                 children: reservation.children,
-                totalValue: reservation.totalValue,
-                statusId: !clientId ? 3 : 1,
-                internalReservation: reservation.internalReservation,
+                totalValue: reservation.totalvalue,
+                statusId: !reservation.clientid ? 3 : 1, // confirmada ou aguardando pagto
+                internalReservation: reservation.internalreservation,
+                // internalReservation: reservation.internalReservation, -> qnd houver id do funcionario logado, deve ser true. e qnd n houver, false. tirar do newstate dps lá
             });
 
+            alertMessage('success', 'Operação realizada com sucesso!', 'Reserva cadastrada.');
             fetchReservations();
+            onClose();
 
         } catch (error) {
             if (error.response) {
-                console.error('Registration failed with status code:', error.response.status);
-                console.error('Error details:', error.response.data);
-            } else if (error.request) {
-                console.error('No response received from the server');
-            } else {
-                console.error('Error setting up the request:', error.message);
+                alertMessage('error', `Ocorreu um erro ${error.response.status} ao realizar a operação.`, 'Por favor tente novamente ou contate o administrador do site.');
             }
+            console.log(error);
         }
     };
 
-    const checkInOut = async (id, checkIn, checkOut) => {
+    const checkInOut = async (id, checkIn, checkOut, onClose) => {
         try {
             console.log(checkIn, checkOut);
             const response = await api.put(`/reservation/checkinout/${id}`, {
                 checkIn: checkIn,
-                checkOut: checkOut
+                checkOut: checkOut,
+                statusId: checkIn ? 5 : 6,
             });
 
-            if(response && response.status >= 200 && response.status < 300) {
-                updateStatus(id, checkIn ? 5 : 6);
-                fetchReservations();
-            }
+            alertMessage('success', 'Operação realizada com sucesso!', checkIn ? 'Check-in registrado e status atualizado.' : 'Check-out registrado e status atualizado.');
+            fetchReservations();
+            onClose();
 
         } catch (error) {
             if (error.response) {
-                console.error('Registration failed with status code:', error.response.status);
-                console.error('Error details:', error.response.data);
-            } else if (error.request) {
-                console.error('No response received from the server');
-            } else {
-                console.error('Error setting up the request:', error.message);
+                alertMessage('error', `Ocorreu um erro ${error.response.status} ao realizar a operação.`, 'Por favor tente novamente ou contate o administrador do site.');
             }
         }
     };
 
-    const updateStatus = async (id, status) => {
+    const updateStatus = async (id, statusId, status, onClose) => {
         try {
             const response = await api.put(`/reservation/status/${id}`, {
-                statusId: status
+                statusId: statusId
             });
+
+            alertMessage('success', 'Operação realizada com sucesso!', `A reserva foi ${status}.`);
             fetchReservations();
+            onClose()
 
         } catch (error) {
             if (error.response) {
-                console.error('Registration failed with status code:', error.response.status);
-                console.error('Error details:', error.response.data);
-            } else if (error.request) {
-                console.error('No response received from the server');
-            } else {
-                console.error('Error setting up the request:', error.message);
+                alertMessage('error', `Ocorreu um erro ${error.response.status} ao realizar a operação.`, 'Por favor tente novamente ou contate o administrador do site.');
             }
         }
     };
@@ -128,7 +129,7 @@ const useReservations = () => {
         fetchConfirmedReservations();
     }, []);
 
-    return { reservations, confirmedReservations, reservationStatus, addReservation, checkInOut, updateStatus, loading, error };
+    return { reservations, confirmedReservations, reservationStatus, addReservation, checkInOut, updateStatus, loading, error, contextHolder };
 };
 
 export default useReservations;

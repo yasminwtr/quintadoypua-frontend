@@ -1,83 +1,45 @@
 "use client"
 import dayjs from 'dayjs';
-import { useState, useEffect } from 'react';
-import { Button, Drawer, Form, Space } from 'antd';
+import { Button, Drawer, Space } from 'antd';
 import FormReservation from '@/app/components/ReservationDrawer/Form'
 
-export default function EditReservation({ selectedReservation, setSelectedReservation, open, onClose, addReservation, checkInOut, updateStatus }) {
-    const [form] = Form.useForm();
+export default function EditReservation({ selectedReservation, newReservation, setNewReservation, open, onClose, addReservation, checkInOut, updateStatus }) {
     const dateFormat = 'DD/MM/YYYY';
     const canEdit = !selectedReservation?.statusid
-    const initialStateNewReservation = {
-        clientId: null,
-        employeeId: null, // qnd aplicar a autenticação, o valor aqui vai ser do funcionario logado
-        id: '',
-        solicitationDate: '',
-        room: '',
-        daily: 0,
-        guest: '',
-        email: '',
-        contact: '',
-        adults: 1,
-        children: 0,
-        totalGuests: 1,
-        maxGuest: '',
-        reservationTime: '',
-        days: 0,
-        totalValue: 0,
-        status: 3, // confirmada
-        observation: '',
-        internalReservation: true
-    };
-    const [newReservation, setNewReservation] = useState(initialStateNewReservation)
 
-    useEffect(() => {
-        const fieldsToSet = selectedReservation ? {
-            id: selectedReservation.id,
-            solicitationDate: selectedReservation?.solicitationdate,
-            room: selectedReservation.roomid,
-            guest: selectedReservation.nameguest,
-            email: selectedReservation.emailguest,
-            contact: selectedReservation.contactguest,
-            adults: selectedReservation.adults,
-            children: selectedReservation.children,
-            reservationTime: [dayjs(selectedReservation.startdate), dayjs(selectedReservation.enddate)],
-            status: selectedReservation.status,
-            observation: selectedReservation.observation,
-        } : newReservation;
+    const handleFormChange = (e, option) => {
+        if (!option) {
+            const { name, value } = e.target;
+            let daysValue = newReservation?.days
 
-        setSelectedReservation(selectedReservation);
-        form.setFieldsValue(fieldsToSet);
+            if (name === 'reservationtime') {
+                daysValue = !value ? 0 : (dayjs(value[1]?.$d).diff(dayjs(value[0]?.$d), 'day') + 1)
+            }
 
-    }, [selectedReservation]);
+            setNewReservation((prevData) => ({
+                ...prevData,
+                [name]: value,
+                days: daysValue,
+                totalvalue: daysValue * prevData.daily
+            }));
 
-    const handleFormChange = (changedValues, allValues) => {
-        const key = Object.keys(changedValues)[0];
-        const value = changedValues[key];
-        setNewReservation((prevData) => ({
-            ...prevData,
-            [key]: value,
-            room: allValues.room?.value || '',
-            daily: allValues.room?.title?.daily || 0,
-            totalGuests: allValues.adults + allValues.children,
-            maxGuest: allValues.room?.title?.maxguest || '',
-            days: !allValues.reservationTime ? 0 : dayjs(allValues.reservationTime[1]?.$d).diff(dayjs(allValues.reservationTime[0]?.$d), 'day') + 1,
-        }));
+        } else {
+            const { value, daily, maxguest } = option;
+
+            setNewReservation((prevData) => ({
+                ...prevData,
+                roomid: value || '',
+                daily,
+                maxguest,
+                totalvalue: prevData.days * daily
+            }));
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(newReservation);
-        addReservation(newReservation)
+        addReservation(newReservation, onClose())
     };
-
-    useEffect(() => {
-        if (!open) {
-            setNewReservation(initialStateNewReservation)
-            form.setFieldsValue(initialStateNewReservation)
-            setSelectedReservation(null)
-        }
-    }, [open]);
 
     return (
         <Drawer
@@ -98,27 +60,27 @@ export default function EditReservation({ selectedReservation, setSelectedReserv
                         </Button>
                     }
                     {selectedReservation?.statusid == 2 &&
-                        <Button type="primary" onClick={() => updateStatus(selectedReservation.id, 3)}>
+                        <Button type="primary" onClick={() => updateStatus(selectedReservation.id, 3, 'confirmada', onClose())}>
                             Confirmar reserva
                         </Button>
                     }
                     {selectedReservation?.statusid == 3 &&
-                        <Button type="primary" onClick={() => checkInOut(selectedReservation.id, true, false)}>
+                        <Button type="primary" onClick={() => checkInOut(selectedReservation.id, true, false, onClose())}>
                             Confirmar Check-In
                         </Button>
                     }
                     {selectedReservation?.statusid == 5 &&
-                        <Button type="primary" onClick={() => checkInOut(selectedReservation.id, false, true)}>
+                        <Button type="primary" onClick={() => checkInOut(selectedReservation.id, false, true, onClose())}>
                             Confirmar Check-Out
                         </Button>
                     }
                     {selectedReservation?.statusid == 6 &&
-                        <Button type="primary" onClick={() => updateStatus(selectedReservation.id, 7)}>
+                        <Button type="primary" onClick={() => updateStatus(selectedReservation.id, 7, 'finalizada', onClose())}>
                             Finalizar reserva
                         </Button>
                     }
                     {(selectedReservation?.statusid == 1 || selectedReservation?.statusid == 2 || selectedReservation?.statusid == 3) && (selectedReservation?.statusid != 4) &&
-                        <Button type="primary" danger onClick={() => updateStatus(selectedReservation.id, 4)}>
+                        <Button type="primary" danger onClick={() => updateStatus(selectedReservation.id, 4, 'cancelada', onClose())}>
                             Cancelar reserva
                         </Button>
                     }
@@ -126,12 +88,11 @@ export default function EditReservation({ selectedReservation, setSelectedReserv
             }
         >
             <FormReservation
-                form={form}
-                handleFormChange={handleFormChange}
                 reservation={selectedReservation}
                 canEdit={canEdit}
                 dateFormat={dateFormat}
                 newReservation={newReservation}
+                handleFormChange={handleFormChange}
             />
         </Drawer>
     );

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { TbEditCircle } from "react-icons/tb";
 import { Table } from 'antd';
-import LateralMenu from "@/app/components/LateralMenu/LateralMenu"
+import LateralMenu from "@/app/components/Sidebar/Sidebar"
 import EditEmployee from '@/app/components/EmployeeDrawer/EditEmployee';
 
 export default function EmployeeManagement() {

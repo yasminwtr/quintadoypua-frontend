@@ -1,0 +1,18 @@
+.menu {
+    background-color: #7E2726;
+    min-height: 100vh;
+    padding: 1.6em;
+    box-sizing: border-box;
+    max-width: fit-content;
+}
+
+.menu span {
+    display: block;
+    margin-bottom: 1.2em;
+    padding: 0.4em;
+}
+
+.active {
+    border-radius: 0.5em;
+    background-color: #681b1a;
+}

@@ -3,20 +3,8 @@
 
 body {
   margin: 0;
-  font-family: 'Inter';
+  font-family: 'Inter' !important;
   height: 100vh;
-}
-
-.menu {
-  background-color: #7E2726;
-  min-height: 100%;
-  padding: 1.8em;
-  box-sizing: border-box;
-}
-
-.menu span {
-  display: block;
-  margin-bottom: 2.2em;
 }
 
 .ant-input,
@@ -50,7 +38,7 @@ body {
 }
 
 .page {
-  width: 94%;
+  width: 100%;
   padding: 2em 4em 4em 4em;
   overflow-y: scroll;
 }
@@ -78,9 +66,6 @@ body {
 }
 
 .calendar-reservation {
-  background-color: #D2AE6D;
-  border-radius: 6px;
-  padding: 0 1em;
   margin-bottom: 0.5em;
 }
 
