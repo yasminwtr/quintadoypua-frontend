@@ -3,10 +3,12 @@ import Image from 'next/image'
 import welcomeImage from '@/app/assets/images/welcome.png';
 import { Rate } from "antd";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import Navbar from '@/app/components/Navbar/navbar.js'
 
 export default function Home() {
   return (
     <main className={styles.main}>
+      <Navbar />
       <div className={styles.welcome}>
         <div>
           <span>Bem-Vindo à Pousada Quinta do Ypuã!</span>
