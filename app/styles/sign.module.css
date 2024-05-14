@@ -1,1 +1,214 @@
-/* add os styles relacionados a pag de LOGIN e CADASTRO aqui */
+
+.main{
+    width: 100%;
+    height: 100%;
+}
+
+/* .main img{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+} */
+
+.logoImage{
+    padding: 0.5%;
+}
+
+.title{
+    text-align: center;
+    font-size: 200%;
+    font-weight: bold;
+    margin-bottom: 2%;
+}
+
+.containerBody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container{
+    background-color: #F79F1A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 680px;
+    border-radius: 3%;
+}
+
+.span{
+    font-size: 180%;
+    padding-top: 10%;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.containerInputName{
+    color: #FFFFFF;
+    display: flex;
+    font-size: 130%;
+    width: 85%;
+    justify-content: space-between;
+    padding-top: 10%;
+}
+
+.inputName{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputSurname{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputText{
+    border: none;
+    height: 35px;
+    width: 200px;
+    border-radius: 15px;
+    color: #F79F1A;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.inputText:focus{
+    color: #F79F1A;
+    font-weight: bold;
+    font-size: 16px;
+    border:0 none;
+    outline: 0;
+}
+
+.containerInputText{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #FFFFFF;
+    font-size: 130%;
+    margin-top: 2%;
+}
+
+.inputEmailTel{
+    border: none;
+    height: 35px;
+    width: 420px;
+    border-radius: 15px;
+    color: #F79F1A;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.inputEmailTel:focus{
+    color: #F79F1A;
+    font-weight: bold;
+    font-size: 16px;
+    border:0 none;
+    outline: 0;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+}
+
+.containerPasswords{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputsEmail{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputsCellphone{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+}
+
+.password{
+    display: flex;
+    flex-direction: row;
+}
+
+.password img{
+    margin-left: 10px;
+}
+
+.confirmPassword{
+    display: flex;
+    flex-direction: row;
+}
+
+.confirmPassword img{
+    margin-left: 10px;
+}
+
+.inputPasswords{
+    border: none;
+    height: 35px;
+    width: 375px;
+    border-radius: 15px;
+    color: #F79F1A;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.inputPasswords:focus{
+    color: #F79F1A;
+    font-weight: bold;
+    font-size: 16px;
+    border:0 none;
+    outline: 0;
+}
+
+.containerFeet{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    padding-top: 16%;
+}
+
+.button button:hover{
+    background-color: #FFFFFF;
+    color: #F79F1A;
+    cursor: pointer;
+}
+
+.link a{
+    padding-top: 5%;
+    color: #046E1B;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link a:hover{
+    color: #FFFFFF;
+}
+
+.link {
+    margin-top: 4%;
+}
+
+.buttonCadastrar{
+    width: 230px;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #046E1B;
+}
+
+.labelPass{
+    margin-top: 2%;
+}
