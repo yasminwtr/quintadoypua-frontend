@@ -49,7 +49,7 @@ export default function SignUp() {
                                         <Image
                                             src={EyeOpen}
                                             width={40}
-                                            alt="Title photo"
+                                            alt="eye photo open"
                                         />
                                     </div>
                                 </div>
