@@ -1,0 +1,72 @@
+.rooms,
+.reviews_container {
+    width: 90%;
+}
+
+
+
+.header_rooms div span:nth-child(1) {
+    font-weight: 600;
+    font-size: 35px;
+    display: block;
+    margin-bottom: 0em;
+    margin-top: 3.5em;
+    margin-left: 3em;
+    
+}
+
+.options {
+    margin-top: 2em;
+    display: flex;
+    margin-right: 8em;
+    margin-left: 5em;
+}
+
+.room {
+    box-shadow: 1px 3px 30px hsla(93, 92%, 31%, 0.435);
+    border-radius: 10px;
+    width: 40%;
+    margin-left: 10%;
+    
+}
+
+.room div:nth-child(1) {
+    background-image: url('https://static.wixstatic.com/media/b87f83_442829334f1b4dd1879b3231151437a3~mv2.jpg/v1/fill/w_696,h_304,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/IMG_2610.jpg');
+    background-size: 100%;
+    width: 100%;
+    height: 200px;
+    border-radius: 10px 10px 0 0;
+    
+}
+
+.room div:nth-child(2) {
+    padding: 0em 1em 1em 40%;
+}
+
+.room div:nth-child(2) span:nth-child(1) {
+    font-weight: 600;
+    font-size: 20px;
+    display: flex;
+    margin-left: -45px;
+}
+.in{
+    margin-left: 15px;
+    background-color: hsl(132, 94%, 20%);
+    color: #fff;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100px;
+    text-align: center;
+}
+.out{
+    margin-left: 15px;
+    background-color: hwb(9 2% 62%);
+    color: #fff;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100px;
+    text-align: center;
+    margin-top: 10px;
+}
