@@ -1,24 +1,20 @@
+"use client"
+import { useState } from 'react';
 import styles from "@/app/styles/userEdit.module.css";
 import Image from 'next/image'
 import EyeOpen from '@/app/assets/images/EyeOpen.png'
 import EyeClose from '@/app/assets/images/EyeClose.png'
-import imgPhoto from '@/app/assets/images/camera.png'
-import sheets from '@/app/assets/images/sheets.png'
 import titleImage from '@/app/assets/images/title.png';
 
-export default function SignUp() {
+export default function UserEdit() {
+
+  const [isShow, setIsShow] = useState(false);
+  const [isShowTwo, setIsShowTwo] = useState(false);
+  const handlePassword =()=>setIsShow(!isShow);
+  const handlePasswordTwo =()=>setIsShowTwo(!isShowTwo);
+
   return (
     <main className={styles.main}>
-      {/* <Image
-        src={sheets}
-        width={500}
-        alt="Title photo"
-      />
-      <Image
-        src={sheets}
-        width={500}
-        alt="Title photo"
-      /> */}
       <div className={styles.welcome}>
         <div className={styles.logoImage}>
           <Image
@@ -32,13 +28,6 @@ export default function SignUp() {
         </div>
         <div className={styles.containerBody}>
           <div className={styles.container}>
-            <div className={styles.iconImg}>
-              <Image
-                src={imgPhoto}
-                width={80}
-                alt="User photo"
-              /> 
-            </div>
             <div className={styles.span}>
               <span>Alterar foto de perfil</span>
             </div>
@@ -66,27 +55,26 @@ export default function SignUp() {
               <div className={styles.containerPasswords}>
                 <label for="password" className={styles.labelPass}>Nova senha:</label>
                 <div className={styles.password}>
-                  <input type="password" id="password" name="password" className={styles.inputPasswords}></input>
-                  <Image
-                    src={EyeOpen}
-                    width={40}
-                    alt="eye photo open"
-                  />
+                  <input type={isShow ? "text" : "password"} id="password" name="password" className={styles.inputPasswords}></input>
+                  <button onClick={handlePassword} type="button">
+                    {isShow && <Image src={EyeClose} width={40} alt="eye photo open two" />}
+                    {!isShow && <Image src={EyeOpen} width={40} alt="eye photo open two" />}
+                  </button>
                 </div>
                 <label for="confirmPassword" className={styles.labelPass}>Confirmar Senha:</label>
                 <div className={styles.confirmPassword}>
-                  <input type="password" id="confirmPassword" name="confirmPassword" className={styles.inputPasswords}></input>
-                  <Image
-                    src={EyeOpen}
-                    width={40}
-                    alt="eye photo open two"
-                  />
+                  <input type={isShowTwo ? "text" : "password"} id="confirmPassword" name="confirmPassword" className={styles.inputPasswords}></input>
+                  <button onClick={handlePasswordTwo} type="button">
+                    {isShowTwo && <Image src={EyeClose} width={40} alt="eye photo open two" />}
+                    {!isShowTwo && <Image src={EyeOpen} width={40} alt="eye photo open two" />}
+                  </button>
                 </div>
               </div>
             </div>
             <div className={styles.containerFeet}>
               <div className={styles.button}>
                 <button className={styles.buttonCadastrar}>Atualizar</button>
+                <button className={styles.buttonExcluir}>Excluir</button>
               </div>
             </div>
           </div>

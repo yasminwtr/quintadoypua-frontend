@@ -1,3 +1,5 @@
+"use client"
+import { useState } from 'react';
 import styles from "@/app/styles/login.module.css";
 import Image from 'next/image'
 import EyeOpen from '@/app/assets/images/EyeOpen.png'
@@ -5,19 +7,13 @@ import EyeClose from '@/app/assets/images/EyeClose.png'
 import sheets from '@/app/assets/images/sheets.png'
 import titleImage from '@/app/assets/images/title.png';
 
-export default function SignUp() {
+export default function Login() {
+
+    const [isShow, setIsShow] = useState(false);
+    const handlePassword = () => setIsShow(!isShow);
+
     return (
         <main className={styles.main}>
-            {/* <Image
-        src={sheets}
-        width={500}
-        alt="Title photo"
-      />
-      <Image
-        src={sheets}
-        width={500}
-        alt="Title photo"
-      /> */}
             <div className={styles.welcome}>
                 <div className={styles.logoImage}>
                     <Image
@@ -45,12 +41,11 @@ export default function SignUp() {
                                 <div className={styles.containerPasswords}>
                                     <label for="password" className={styles.labelPass}>Senha:</label>
                                     <div className={styles.password}>
-                                        <input type="password" id="password" name="password" className={styles.inputPasswords}></input>
-                                        <Image
-                                            src={EyeOpen}
-                                            width={40}
-                                            alt="eye photo open"
-                                        />
+                                        <input type={isShow ? "text" : "password"} id="password" name="password" className={styles.inputPasswords}></input>
+                                        <button onClick={handlePassword} type="button">
+                                            {isShow && <Image src={EyeClose} width={40} alt="eye photo open two" />}
+                                            {!isShow && <Image src={EyeOpen} width={40} alt="eye photo open two" />}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +54,7 @@ export default function SignUp() {
                                     <button className={styles.buttonCadastrar}>Login</button>
                                 </div>
                                 <div className={styles.link}>
-                                    <a href="">Ainda não possui uma conta? Faça seu cadastro aqui!</a>
+                                    <a href="/signup">Ainda não possui uma conta? Faça seu cadastro aqui!</a>
                                 </div>
                             </div>
                         </div>

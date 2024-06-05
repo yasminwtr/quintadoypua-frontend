@@ -4,12 +4,6 @@
     height: 100%;
 }
 
-/* .main img{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-} */
-
 .logoImage{
     padding: 0.5%;
 }
@@ -18,7 +12,7 @@
     text-align: center;
     font-size: 200%;
     font-weight: bold;
-    margin-bottom: 2%;
+    margin-bottom: 3.5%;
 }
 
 .containerBody{
@@ -33,13 +27,13 @@
     flex-direction: column;
     align-items: center;
     width: 500px;
-    height: 750px;
+    height: 620px;
     border-radius: 3%;
 }
 
 .span{
     font-size: 150%;
-    padding-top: 1%;
+    padding-top: 8%;
     color: #FFFFFF;
     font-weight: bold;
 }
@@ -50,14 +44,7 @@
     font-size: 130%;
     width: 85%;
     justify-content: space-between;
-    padding-top: 3%;
-}
-
-.iconImg{
-    background-color: #FFFFFF;
-    border-radius: 100px;
-    padding: 10%;
-    margin-top: 5%;
+    padding-top: 5%;
 }
 
 .inputName{
@@ -181,7 +168,7 @@
 .button{
     display: flex;
     align-items: center;
-    padding-top: 12%;
+    padding-top: 10%;
 }
 
 .button button:hover{
@@ -191,7 +178,7 @@
 }
 
 .buttonCadastrar{
-    width: 230px;
+    width: 200px;
     height: 50px;
     border: none;
     border-radius: 30px;
@@ -199,6 +186,18 @@
     font-weight: bold;
     font-size: 16px;
     background-color: #046E1B;
+    margin-right: 10%;
+}
+
+.buttonExcluir{
+    width: 200px;
+    height: 50px;
+    border: none;
+    border-radius: 30px;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 16px;
+    background-color: hwb(9 2% 62%);
 }
 
 .labelPass{
