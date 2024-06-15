@@ -2,11 +2,11 @@ import { Tag } from 'antd';
 import { CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 
 const statusMap = {
-    2: { icon: <ClockCircleOutlined />, color: 'orange', text: 'Pendente' },
-    3: { icon: <CheckCircleOutlined />, color: 'green', text: 'Confirmada' },
-    5: { icon: <CheckCircleOutlined />, color: 'purple', text: 'Check-In Realizado' },
-    6: { icon: <CheckCircleOutlined />, color: 'magenta', text: 'Check-Out Realizado' },
-    7: { icon: <CheckCircleOutlined />, color: 'geekblue', text: 'Finalizada' },
+    2: { icon: <ClockCircleOutlined />, color: 'orange' },
+    3: { icon: <CheckCircleOutlined />, color: 'green' },
+    5: { icon: <CheckCircleOutlined />, color: 'purple' },
+    6: { icon: <CheckCircleOutlined />, color: 'magenta' },
+    7: { icon: <CheckCircleOutlined />, color: 'geekblue' },
 };
 
 export function CalendarReservations(idstatus, idreservation) {

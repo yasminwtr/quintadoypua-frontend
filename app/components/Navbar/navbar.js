@@ -1,26 +1,37 @@
-import PousadaLogo from '@/app/assets/vectors/logo.png'
+import logo from '@/app/assets/images/Vector.png';
 import Image from 'next/image'
+import useAuth from '@/app/hooks/useAuth';
 
 export default function Navbar() {
-    return (
-      <header> 
-        <nav className='flex justify-between py-4 px-20'>
-          
-        <Image
-          src={PousadaLogo}
-          alt="Logo pousada"
-          className=' w-48 h-9'
-        />
+  const { user } = useAuth()
 
-          <ul className='flex gap-24'>
-            <li className='text-black leading-normal text-lg font-bold'><a href="#">Inicial</a></li>
-            <li className='text-black leading-normal text-lg font-bold'><a href="#">Acomodações</a></li>
-          </ul>
-            
-            <button className='bg-[#046E1B] rounded-lg  px-6 text-white shadow-lg'>
-              Entrar
-            </button>
-        </nav>
-      </header>
-    );
-  }
+  return (
+    <header>
+      <nav>
+        <div className='logo'>
+          <Image
+            src={logo}
+            width={25}
+            alt="Logo"
+          />
+          <a href="/">Quinta do Ypuã</a>
+        </div>
+
+        <div className='nav-links'>
+          <a href="/">Inicial</a>
+          <a href="/reservation">Acomodações</a>
+        </div>
+
+        {user ?
+          <a id='login-nav'>Entrar</a>
+          :
+          <div>
+            <a href="/userEdit" id='login-nav'>Meu perfil</a>
+            <button id='logout-nav'>Sair</button>
+          </div>
+        }
+
+      </nav>
+    </header>
+  );
+}

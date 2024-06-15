@@ -4,12 +4,11 @@ import styles from "@/app/styles/userEdit.module.css";
 import Image from 'next/image'
 import EyeOpen from '@/app/assets/images/EyeOpen.png'
 import EyeClose from '@/app/assets/images/EyeClose.png'
-import titleImage from '@/app/assets/images/title.png';
 import useClient from '@/app/hooks/useClient';
+import Navbar from '@/app/components/Navbar/navbar';
 
 export default function UserEdit() {
-  const { client, fetchClient, loading, error, contextHolder, updateClient, deleteClient} = useClient();
-  fetchClient(1)
+  const { client, loading, error, contextHolder, updateClient, deleteClient} = useClient();
   const [ id, setId] = useState(1);
   const [ name, setName] = useState();
   const [ email, setEmail] = useState();
@@ -44,17 +43,8 @@ export default function UserEdit() {
 
   return (
     <main className={styles.main}>
+      <Navbar/>
       <div className={styles.welcome}>
-        <div className={styles.logoImage}>
-          <Image
-            src={titleImage}
-            width={300}
-            alt="Title photo"
-          />
-        </div>
-        <div className={styles.title}>
-          <span>Editar perfil</span>
-        </div>
         <div className={styles.containerBody}>
           <div className={styles.container}>
             <div className={styles.span}>
@@ -62,23 +52,15 @@ export default function UserEdit() {
             </div>
             <div className={styles.containerInputName}>
               <div className={styles.inputName}>
-                <label for="nome">Nome:</label>
+                <label >Nome:</label>
                 <input type="text" id="nome" name="nome" className={styles.inputText} onChange={(e) => updateName(e)} defaultValue={client[0]?client[0].name:''}></input>
-              </div>
-              <div className={styles.inputSurname}>
-                <label for="surname">Sobrenome:</label>
-                <input type="text" id="surname" name="surname" className={styles.inputText}></input>
               </div>
             </div>
             <div className={styles.containerInputText}>
               <div className={styles.inputs}>
                 <div className={styles.inputsEmail}>
-                  <label for="email">Atualizar email:</label>
+                  <label >Atualizar email:</label>
                   <input type="text" id="email" name="email" className={styles.inputEmailTel} onChange={(e) => updateEmail(e)} defaultValue={client[0]?client[0].email:''}></input>
-                </div>
-                <div className={styles.inputsCellphone}>
-                  <label for="cellphone">Atualizar telefone:</label>
-                  <input type="text" id="cellphone" name="cellphone" className={styles.inputEmailTel}></input>
                 </div>
               </div>
               <div className={styles.containerPasswords}>

@@ -13,9 +13,6 @@ export default function Reservation() {
                     <button>Filtrar Por</button>
                 </div>
 
-
-
-
                 <div className={styles.options}>
                     <div className={styles.room}>
                         <div></div>

@@ -1,6 +1,5 @@
 "use client"
 import { useState, useEffect } from 'react';
-import dayjs from 'dayjs';
 import api from '@/app/api/api';
 import { notification } from 'antd';
 
@@ -16,18 +15,6 @@ const useClient = () => {
             description: description,
             placement: placement ? placement : 'topRight',
         });
-    };
-
-    const fetchClient = async (id) => {
-        try {
-            const response = await api.get(`/client/${id}`);
-            setClient(response.data)
-            setLoading(false);
-        } catch (error) {
-            console.error('Erro ao buscar dados:', error);
-            setError(error);
-            setLoading(false);
-        }
     };
 
     const deleteClient = async (id) => {
@@ -61,11 +48,7 @@ const useClient = () => {
         }
     };
 
-    // useEffect(() => {
-    //     fetchClient();
-    // }, []);
-
-    return { client, fetchClient, loading, error, contextHolder, updateClient, deleteClient };
+    return { client, loading, error, contextHolder, updateClient, deleteClient };
 };
 
 export default useClient;

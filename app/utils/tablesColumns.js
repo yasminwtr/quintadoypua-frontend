@@ -50,3 +50,26 @@ export const reservationColumns = [
         dataIndex: 'actions',
     },
 ];
+
+export const employeColumns = [
+    {
+        title: 'ID',
+        dataIndex: 'key',
+        sorter: {
+            compare: (a, b) => a.key - b.key,
+            multiple: 3,
+        },
+    },
+    {
+        title: 'NOME',
+        dataIndex: 'name',
+    },
+    {
+        title: 'CARGO',
+        dataIndex: 'position',
+    },
+    {
+        title: 'AÇÕES',
+        dataIndex: 'actions',
+    },
+];

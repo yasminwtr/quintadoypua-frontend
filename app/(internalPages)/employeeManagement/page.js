@@ -1,50 +1,45 @@
 "use client"
 import { useState } from 'react';
-import { TbEditCircle } from "react-icons/tb";
-import { Table } from 'antd';
+import { TbEdit } from "react-icons/tb";
+import { Table, Spin, Button } from 'antd';
 import LateralMenu from "@/app/components/Sidebar/Sidebar"
-import EditEmployee from '@/app/components/EmployeeDrawer/EditEmployee';
+import EditEmployee from '@/app/components/EmployeeDrawer/Drawer';
+import { employeColumns } from '@/app/utils/tablesColumns';
+import useEmployees from '@/app/hooks/useEmployees';
+import useAuth from '@/app/hooks/useAuth'
 
 export default function EmployeeManagement() {
+  const { user } = useAuth()
+
+    console.log('aaa', user);
+  const { employees, employeeRoles, loading, error } = useEmployees()
   const [open, setOpen] = useState(false);
-  const showDrawer = () => {
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const initialStateNewEmployee = {
+    name: '',
+    email: '',
+    password: '',
+    positionid: '',
+  };
+  const [newEmployee, setNewEmployee] = useState(initialStateNewEmployee)
+
+  const showDrawer = (employee) => {
+    setSelectedEmployee(employee)
+    setNewEmployee(initialStateNewEmployee)
     setOpen(true);
   };
   const onClose = () => {
     setOpen(false);
   };
 
-  const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      sorter: {
-        compare: (a, b) => a.reserva - b.reserva,
-        multiple: 3,
-      },
-    },
-    {
-      title: 'NOME',
-      dataIndex: 'name',
-    },
-    {
-      title: 'CARGO',
-      dataIndex: 'cargo',
-    },
-    {
-      title: 'AÇÕES',
-      dataIndex: 'acao',
-    },
-  ];
-  const data = [
-    {
-      key: '1',
-      id: '18',
-      name: 'Yasmin Titow',
-      cargo: 'Desenvolvedora Web',
-      acao: <TbEditCircle size={20} color={'#29343F'} onClick={showDrawer} />,
-    },
-  ];
+  const tableData = employees.map(employee => {
+    return {
+      key: employee.id,
+      name: employee.name,
+      position: employee.position,
+      actions: <TbEdit size={20} color={'#29343F'} onClick={() => showDrawer(employee)} />
+    };
+  });
 
   return (
     <main className="main-internal">
@@ -53,9 +48,26 @@ export default function EmployeeManagement() {
       <div className="page">
         <span className="title">Gerenciamento de Funcionários</span>
 
-        <Table className="table" columns={columns} dataSource={data} />
+        <Button onClick={() => showDrawer(null)} type='primary' className='new'>Novo funcionário</Button>
 
-        <EditEmployee open={open} onClose={onClose} />
+        {loading ?
+          <Spin fullscreen={true} />
+          :
+          <Table
+            className="table"
+            columns={employeColumns}
+            dataSource={tableData}
+          />
+        }
+
+        <EditEmployee
+          selectedEmployee={selectedEmployee}
+          employeeRoles={employeeRoles}
+          newEmployee={newEmployee}
+          setNewEmployee={setNewEmployee}
+          open={open}
+          onClose={onClose}
+        />
       </div>
     </main>
   );

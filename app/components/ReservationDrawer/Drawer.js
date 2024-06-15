@@ -47,11 +47,7 @@ export default function EditReservation({ selectedReservation, newReservation, s
             width={720}
             onClose={onClose}
             open={open}
-            styles={{
-                footer: {
-                    padding: 22
-                }
-            }}
+            styles={{ footer: { padding: 22 } }}
             footer={
                 <Space>
                     {canEdit &&

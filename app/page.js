@@ -2,16 +2,17 @@ import styles from "@/app/page.module.css";
 import Image from 'next/image'
 import welcomeImage from '@/app/assets/images/welcome.png';
 import { Rate } from "antd";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import Navbar from "./components/Navbar/navbar";
 
 export default function Home() {
   return (
     <main className={styles.main}>
+      <Navbar/>
       <div className={styles.welcome}>
         <div>
           <span>Bem-Vindo à Pousada Quinta do Ypuã!</span>
           <span>Descubra um refúgio de tranquilidade e conforto, onde cada detalhe é cuidadosamente planejado para tornar sua estadia inesquecível. Explore nossas acomodações, faça sua reserva de maneira fácil e rápida, e compartilhe momentos especiais conosco.</span>
-          <button>Ver acomodações</button>
+          <a href="/reservation">Ver acomodações</a>
         </div>
 
         <Image
@@ -28,7 +29,7 @@ export default function Home() {
             <span>Veja as nossas acomodações mais populares</span>
 
           </div>
-          <button>Ver todas</button>
+          <a href="/reservation">Ver todas</a>
 
         </div>
 
@@ -75,7 +76,7 @@ export default function Home() {
         <div>
           <span>Sobre a pousada</span>
           <span>A pousada Quinta do Ypuã oferece ao seus clientes um recanto de aconchego e lazer, em ambiente  rústico e agradável. Ideal para quem gosta de fugir da rotina e procura um local de paz para descansar e curtir a natureza.</span>
-          <button>Quero fazer minha reserva</button>
+          <a href="/reservation">Quero fazer minha reserva</a>
         </div>
       </div>
 
@@ -116,12 +117,6 @@ export default function Home() {
 
             <span className={styles.description_review}>Minha estadia na Pousada Quinta do Ypuã foi simplesmente magnífica! O atendimento da equipe foi caloroso e profissional, e as acomodações eram impecáveis.</span>
           </div>
-        </div>
-
-        <div className={styles.pagination}>
-          <div></div>
-          <button><FaAngleLeft size={18}/></button>
-          <button><FaAngleRight size={18}/></button>
         </div>
       </div>
     </main>
