@@ -19,7 +19,6 @@ const useRooms = () => {
                 setLoading(false);
             }
         }
-
         fetchData();
     }, []);
 

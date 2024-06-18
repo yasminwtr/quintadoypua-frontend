@@ -1,31 +1,25 @@
 .rooms,
 .reviews_container {
-    width: 90%;
+    margin-left: -100px;
 }
 
 .header_rooms {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-left: 6em;
 }
 
-.header_rooms div span:nth-child(1) {
+.t1 {
     font-weight: 600;
     font-size: 35px;
     display: block;
     margin-bottom: 0em;
     margin-top: 3.5em;
-    margin-left: 3em;
-    
+    margin-left: 6.5em;
+    margin-right: 32.3em;
 }
 
-.header_rooms span:nth-child(2) {
-    color: #7F7D7D;
-}
-
-.header_rooms button {
-    background-color: #F79F1A;
+.buttonAdd {
+    background-color: #178106;
     color: #fff;
     border: none;
     padding: 1em;
@@ -39,7 +33,7 @@
     text-align: center;
     line-height: 0px;
     margin-top: 9.3em;
-    margin-right: 8.3em;
+    margin-right: 2em;
 }
 
 .options {
@@ -53,7 +47,7 @@
     box-shadow: 1px 3px 30px hwb(0 0% 92% / 0.086);
     border-radius: 10px;
     width: 25%;
-    margin-left: auto;
+    margin-left: 8%;
     
 }
 
@@ -81,4 +75,27 @@
     text-decoration: underline;
     color: #F79F1A;
     cursor: pointer;
+}
+
+.buttonEidt{
+    margin-left: 15px;
+    background-color: hsl(58, 83%, 46%);
+    color: #fff;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.buttonDelete{
+    margin-left: 15px;
+    background-color: hwb(0 4% 14%);
+    color: #fff;
+    border-radius: 30px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100px;
+    text-align: center;
+    margin-bottom: 10px;
 }

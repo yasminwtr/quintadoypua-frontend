@@ -11,8 +11,8 @@ import useAuth from '@/app/hooks/useAuth'
 export default function EmployeeManagement() {
   const { user } = useAuth()
 
-    console.log('aaa', user);
-  const { employees, employeeRoles, loading, error } = useEmployees()
+    // console.log('aaa', user);
+  const { employees, employeeRoles, loading, error, addEmployee, updateEmployee, deleteEmployee} = useEmployees()
   const [open, setOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const initialStateNewEmployee = {
@@ -67,6 +67,9 @@ export default function EmployeeManagement() {
           setNewEmployee={setNewEmployee}
           open={open}
           onClose={onClose}
+          addEmployee={addEmployee}
+          updateEmployee={updateEmployee}
+          deleteEmployee={deleteEmployee}
         />
       </div>
     </main>

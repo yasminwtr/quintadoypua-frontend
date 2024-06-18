@@ -1,7 +1,7 @@
-import { Button, Drawer, Space } from 'antd';
+import { Alert, Button, Drawer, Space } from 'antd';
 import Form from '@/app/components/EmployeeDrawer/Form'
 
-export default function EditEmployee({ selectedEmployee, employeeRoles, newEmployee, setNewEmployee, open, onClose }) {
+export default function EditEmployee({ selectedEmployee, employeeRoles, newEmployee, setNewEmployee, open, onClose, addEmployee, updateEmployee, deleteEmployee }) {
     const isRegistration = !selectedEmployee?.id
 
     const handleFormChange = (e) => {
@@ -13,6 +13,29 @@ export default function EditEmployee({ selectedEmployee, employeeRoles, newEmplo
         }));
     };
 
+    const handleSave = () => {
+        if (isRegistration) {
+            console.log('funcionario salvo!');
+            addEmployee(newEmployee)
+        } else {
+            console.log('Funcionario editado!');
+            updateEmployee(newEmployee, selectedEmployee.id)
+        }
+        onClose();
+        
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleSave()
+    };
+
+    const handleDelete = () => {
+        console.log('funcionario deletado!');
+        deleteEmployee(selectedEmployee.id)
+        onClose();
+    };
+
     return (
         <Drawer
             title={isRegistration ? "Cadastrar Funcionário" : `Funcionário ${selectedEmployee?.name}`}
@@ -22,9 +45,14 @@ export default function EditEmployee({ selectedEmployee, employeeRoles, newEmplo
             styles={{ footer: { padding: 22 } }}
             footer={
                 <Space>
-                    <Button onClick={onClose} type="primary">
+                    <Button onClick={e => handleSubmit(e)} type="primary">
                         Salvar
                     </Button>
+                    {selectedEmployee &&
+                        <Button type="primary" danger onClick={()=> handleDelete()}>
+                            Excluir
+                        </Button>
+                    }
                 </Space>
             }
         >
