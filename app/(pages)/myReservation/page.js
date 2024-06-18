@@ -1,7 +1,9 @@
+"use client"
 import styles from "@/app/styles/myReservation.module.css";
-import Navbar from '@/app/components/Navbar/navbar.js'
+import Navbar from '@/app/components/Navbar/Navbar'
+import withAuth from "@/app/auth/withAuth";
 
-export default function myReservation() {
+function MyReservation() {
     return (
         <main className={styles.main}>
             <Navbar />
@@ -32,3 +34,5 @@ export default function myReservation() {
         </main>
     );
 }
+
+export default withAuth(MyReservation);

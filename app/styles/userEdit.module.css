@@ -8,11 +8,9 @@
     padding: 0.5%;
 }
 
-.title{
-    text-align: center;
-    font-size: 200%;
-    font-weight: bold;
-    margin-bottom: 3.5%;
+.welcome{
+    width: 100%;
+    padding-top: 2em;
 }
 
 .containerBody{
@@ -25,26 +23,41 @@
     background-color: #F79F1A;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 500px;
     height: 550px;
     border-radius: 3%;
+    box-sizing: border-box;
+    padding: 0 3em;
+}
+
+.containerBody label{
+    margin-bottom: 5px;
+}
+
+.containerBody input{
+    margin-bottom: 6px;
+    font-family: 'Inter';
+    box-sizing: border-box;
+    padding: 0 0.5em;
 }
 
 .span{
-    font-size: 150%;
-    padding-top: 8%;
+    font-size: 20px;
+    padding: 8% 0 2em 0;
     color: #FFFFFF;
     font-weight: bold;
+    text-align: center;
 }
 
 .containerInputName{
     color: #FFFFFF;
-    display: flex;
-    font-size: 130%;
-    width: 85%;
-    justify-content: space-between;
-    padding-top: 5%;
+    font-size: 16px;
+}
+
+.eye_button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .inputName{
@@ -52,24 +65,15 @@
     flex-direction: column;
 }
 
-.inputSurname{
-    display: flex;
-    flex-direction: column;
-}
-
 .inputText{
     border: none;
     height: 35px;
-    width: 200px;
-    border-radius: 15px;
-    color: #F79F1A;
-    font-weight: bold;
+    width: 400px;
+    border-radius: 12px;
     font-size: 16px;
 }
 
 .inputText:focus{
-    color: #F79F1A;
-    font-weight: bold;
     font-size: 16px;
     border:0 none;
     outline: 0;
@@ -78,25 +82,20 @@
 .containerInputText{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     color: #FFFFFF;
-    font-size: 130%;
+    font-size: 16px;
     margin-top: 2%;
 }
 
 .inputEmailTel{
     border: none;
     height: 35px;
-    width: 420px;
-    border-radius: 15px;
-    color: #F79F1A;
-    font-weight: bold;
+    width: 400px;
+    border-radius: 12px;
     font-size: 16px;
 }
 
 .inputEmailTel:focus{
-    color: #F79F1A;
-    font-weight: bold;
     font-size: 16px;
     border:0 none;
     outline: 0;
@@ -145,15 +144,11 @@
     border: none;
     height: 35px;
     width: 375px;
-    border-radius: 15px;
-    color: #F79F1A;
-    font-weight: bold;
+    border-radius: 12px;
     font-size: 16px;
 }
 
 .inputPasswords:focus{
-    color: #F79F1A;
-    font-weight: bold;
     font-size: 16px;
     border:0 none;
     outline: 0;
@@ -173,7 +168,6 @@
 
 .button button:hover{
     background-color: #FFFFFF;
-    color: #F79F1A;
     cursor: pointer;
 }
 
@@ -183,10 +177,10 @@
     border: none;
     border-radius: 30px;
     color: #FFFFFF;
-    font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     background-color: #046E1B;
     margin-right: 10%;
+    font-weight: bold;
 }
 
 .buttonExcluir{
@@ -195,9 +189,9 @@
     border: none;
     border-radius: 30px;
     color: #FFFFFF;
-    font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     background-color: hwb(9 2% 62%);
+    font-weight: bold;
 }
 
 .labelPass{

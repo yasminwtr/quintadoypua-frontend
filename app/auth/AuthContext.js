@@ -1,16 +1,20 @@
 "use client"
-import { createContext, useContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '../api/api';
 import CryptoJS from 'crypto-js';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
+export const AuthProvider = ({ children }) => {
     const localSecretKey = "85dscybe8b5f5486732b479395c48897a";
     const router = useRouter();
+
+    const removeTokenFromStorage = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+    };
 
     const getTokenFromStorage = () => {
         try {
@@ -33,9 +37,10 @@ export function AuthProvider({ children }) {
         }
     };
 
-    const setTokenToStorage = (token) => {
+    const setTokenToStorage = (token, role) => {
         const encryptedToken = CryptoJS.AES.encrypt(token, localSecretKey).toString();
         localStorage.setItem('token', encryptedToken);
+        localStorage.setItem('role', role);
 
         const expirationTimeMillis = 4 * 60 * 60 * 1000;
         setTimeout(() => {
@@ -43,25 +48,24 @@ export function AuthProvider({ children }) {
         }, expirationTimeMillis);
     };
 
-    const getUser = () => {
-        const token = getTokenFromStorage();
-
-        if (!token) {
-            return null;
+    const login = async (formData) => {
+        if (!formData.email || !formData.password) {
+            alert('Por favor preencha todos os campos.');
+            return;
         }
 
-        setUser(jwt.decode(token))
-    };
-
-    const login = async (formData) => {
         try {
             const response = await api.post("/auth/login", formData);
 
             if (response.status >= 200 && response.status < 300) {
                 const loginData = response.data;
-                setTokenToStorage(loginData.token)
-                getUser()
-                router.replace('/')
+                setTokenToStorage(loginData.token, loginData.role)
+                if (loginData.role === 'client') {
+                    router.replace('/myReservation')
+
+                } else if (loginData.role === 'employee') {
+                    router.replace('/calendar')
+                }
 
             } else {
                 alert('Um erro ocorreu durante o login. Por favor tente novamente mais tarde.');
@@ -72,18 +76,16 @@ export function AuthProvider({ children }) {
         }
     };
 
-    function logout() {
-        localStorage.removeItem('token');
-        router.push('/');
-    }
+    const logout = () => {
+        removeTokenFromStorage()
+        router.replace('/login');
+    };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ login, logout, getTokenFromStorage }}>
             {children}
         </AuthContext.Provider>
     );
 }
 
-export function useAuth() {
-    return useContext(AuthContext);
-}
+export default AuthContext;

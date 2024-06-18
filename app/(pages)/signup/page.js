@@ -1,18 +1,19 @@
 "use client"
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styles from "@/app/styles/sign.module.css";
 import Image from 'next/image'
 import EyeOpen from '@/app/assets/images/EyeOpen.png'
 import EyeClose from '@/app/assets/images/EyeClose.png'
-import useAuth from '@/app/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import api from '@/app/api/api';
+import withoutAuth from '@/app/auth/withoutAuth';
+import AuthContext from '@/app/auth/AuthContext';
 
-export default function SignUp() {
+function SignUp() {
   const router = useRouter();
   const [isShow, setIsShow] = useState(false);
   const handlePassword = () => setIsShow(!isShow);
-  const { setTokenToStorage } = useAuth();
+  const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -43,28 +44,10 @@ export default function SignUp() {
       });
 
       if (response.status >= 200 && response.status < 300) {
-        alert('Usuario registrado');
-
-        const loginResponse = await api.post("/auth/login", {
+        login({
           email: formData.email,
-          password: formData.password,
-        });
-
-        if (loginResponse.status >= 200 && loginResponse.status < 300) {
-          alert('login ok')
-          const loginData = loginResponse.data;
-
-          setTokenToStorage(loginData.token)
-
-          setFormData({
-            name: "",
-            email: "",
-            password: ""
-          });
-
-          router.replace('/')
-
-        }
+          name: formData.name
+        })
 
       } else {
         console.error('Registration failed with status code:', response.status);
@@ -124,9 +107,9 @@ export default function SignUp() {
                     onChange={handleChange}
                   ></input>
 
-                  <button onClick={handlePassword} type="button">
-                    {isShow && <Image src={EyeClose} width={40} alt="eye photo open two" />}
-                    {!isShow && <Image src={EyeOpen} width={40} alt="eye photo open two" />}
+                  <button onClick={handlePassword} type="button" className={styles.eye_button}>
+                    {isShow && <Image src={EyeClose} width={30} alt="eye photo open two" />}
+                    {!isShow && <Image src={EyeOpen} width={30} alt="eye photo open two" />}
                   </button>
                 </div>
               </div>
@@ -137,7 +120,7 @@ export default function SignUp() {
                 <button className={styles.buttonCadastrar} type="submit" onClick={(e) => handleSubmit(e)}>Cadastrar</button>
               </div>
               <div className={styles.link}>
-                <a href="/login">Já possui uma conta? Faça seu login aqui!</a>
+                <a onClick={() => router.push('/login')}>Já possui uma conta? Faça seu login aqui!</a>
               </div>
             </div>
           </div>
@@ -146,3 +129,5 @@ export default function SignUp() {
     </main>
   );
 }
+
+export default withoutAuth(SignUp);

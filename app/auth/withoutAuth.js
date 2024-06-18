@@ -3,7 +3,7 @@ import { useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import AuthContext from '@/app/auth/AuthContext';
 
-const withAuth = (WrappedComponent) => {
+const withoutAuth = (WrappedComponent) => {
     return (props) => {
         const { getTokenFromStorage } = useContext(AuthContext);
         const router = useRouter();
@@ -11,8 +11,14 @@ const withAuth = (WrappedComponent) => {
         useEffect(() => {
             const token = getTokenFromStorage();
 
-            if (!token) {
-                router.replace('/login');
+            if (token) {
+                const role = localStorage.getItem('role');
+                if(role === 'client') {
+                    router.replace('/myReservation');
+                    
+                } else if(role === 'employee') {
+                    router.replace('/calendar');
+                }
             }
 
         }, []);
@@ -21,4 +27,4 @@ const withAuth = (WrappedComponent) => {
     };
 };
 
-export default withAuth;
+export default withoutAuth;

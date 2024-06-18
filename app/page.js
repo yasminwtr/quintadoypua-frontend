@@ -1,10 +1,12 @@
+"use client"
 import styles from "@/app/page.module.css";
 import Image from 'next/image'
 import welcomeImage from '@/app/assets/images/welcome.png';
 import { Rate } from "antd";
-import Navbar from "./components/Navbar/navbar";
+import Navbar from "@/app/components/Navbar/Navbar";
+import withoutAuth from "@/app/auth/withoutAuth";
 
-export default function Home() {
+function Home() {
   return (
     <main className={styles.main}>
       <Navbar/>
@@ -122,3 +124,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default withoutAuth(Home);

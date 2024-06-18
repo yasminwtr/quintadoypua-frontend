@@ -1,118 +1,219 @@
-import vectorLocalization from '@/app/assets/vectors/vectorLocalization.png'
-import vectorDelete from '@/app/assets/vectors/vectorDelete.png'
-import vectorEdit from '@/app/assets/vectors/vectorEdit.png'
-import roomOutside from '@/app/assets/images/roomOutside.png'
-import roomInside from '@/app/assets/images/roomInside.png'
-import Image from 'next/image'
-import Navbar from '@/app/components/Navbar/navbar.js'
-import { Rate } from "antd"
-import styles from "@/app/styles/home.module.css";
-
+"use client"
+import { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
+import Navbar from '@/app/components/Navbar/Navbar'
+import styles from "@/app/styles/room.module.css";
+import { Col, DatePicker, Input, Form, Row, Select, Spin } from 'antd';
+import useRooms from '@/app/hooks/useRooms';
+import useClient from '@/app/hooks/useClient';
+import useReservations from '@/app/hooks/useReservations';
 
 export default function roomDetail() {
+    const { room, fetchRoomById, loading } = useRooms();
+    const { user, getUser } = useClient();
+    const { addReservation } = useReservations();
+    const dateFormat = 'DD/MM/YYYY';
+    const adultsOptions = [...Array(room?.maxguest).keys()].map(num => num + 1);
+    const childOptions = [...Array(room?.maxguest).keys()].map(num => num);
+    const initialStateNewReservation = {
+        clientid: user?.id,
+        roomid: room?.id,
+        daily: 0,
+        nameguest: user?.name,
+        emailguest: user?.email,
+        contactguest: '',
+        adults: 1,
+        children: 0,
+        reservationtime: null,
+        days: 0,
+        totalvalue: 0,
+        observation: '',
+        internalreservation: false
+    };
+    const [newReservation, setNewReservation] = useState(initialStateNewReservation)
+
+    useEffect(() => {
+        fetchRoomById(1);
+        getUser()
+    }, []);
+
+    useEffect(() => {
+        if (room && user) {
+            setNewReservation(prevState => ({
+                ...prevState,
+                roomid: room.id,
+                clientid: user.id,
+                nameguest: user.name,
+                emailguest: user.email,
+            }));
+        }
+    }, [room, user]);
+
+    const handleFormChange = (e, option) => {
+        if (!option) {
+            const { name, value } = e.target;
+            let daysValue = newReservation?.days
+
+            if (name === 'reservationtime') {
+                daysValue = !value ? 0 : (dayjs(value[1]?.$d).diff(dayjs(value[0]?.$d), 'day') + 1)
+            }
+
+            setNewReservation((prevData) => ({
+                ...prevData,
+                [name]: value,
+                days: daysValue,
+                totalvalue: daysValue * room?.daily
+            }));
+
+        } else {
+            setNewReservation((prevData) => ({
+                ...prevData,
+                totalvalue: prevData.days * room?.daily
+            }));
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        addReservation(newReservation)
+        setNewReservation(initialStateNewReservation)
+    };
+
     return (
-        <main> 
+        <main>
             <Navbar />
-        <div className='flex justify-center'>
-            <div className='bg-no-repeat bg-center h-[560px]  w-[1400px] mt-10 relative'
-            style={{backgroundImage: `url(${roomOutside.src})`}}>
 
-                <div className='absolute top-3 right-40'>
-                    <button className='bg-white/70 rounded-3xl px-4 py-1 border-2 shadow-xl'>
-                        <Image
-                        src={vectorEdit}
-                         alt="Vector edit"
-                        />      
-                    </button>
-                </div>
-
-                <div className='absolute top-3 right-20'>
-                    <button className='bg-white/70 rounded-3xl px-4 py-1 border-2 shadow-xl'>
-                        <Image
-                        src={vectorDelete}
-                         alt="Vector delete"
-                        />      
-                    </button>
-                </div>
-
-                <div className='top-[508px] left-[59px] mt-5 bg-white/70 h-24 w-[550px] rounded-full shadow-xl p-3 absolute'>
-                    <h1 className='font-bold text-2xl ms-7'>Chalé família</h1>
-                    <h2 className='ms-7'>Estrada Ipua no 6Laguna - SC|88790-000</h2>
-                    <div className='ms-7 flex'>
-                        <div className={styles.stars}>
-                        <Rate defaultValue={5} />
+            {loading ?
+                <Spin fullscreen={true} />
+                :
+                <>
+                    <div className={styles.room}>
+                        <div className={styles.image_container}>
+                            <div className={styles.image}>
+                                <div className={styles.room_title}>
+                                    <span>{room?.name}</span>
+                                    <span>Estrada Ipua, 6 - Laguna, SC, 88790-000</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className=' ms-3'>
-                            <h6>4.5<span className=' text-gray-400'> - 1237 reviews </span></h6>
+
+                        <div className={styles.container}>
+                            <div className={styles.info}>
+                                <span className={styles.title}>Informações</span>
+                                <span className={styles.text}>{room?.description}</span>
+
+                                <span className={styles.title}>Valor diária</span>
+                                <span className={styles.text}>R$ {room?.daily}</span>
+
+                                <span className={styles.title}>Check-In</span>
+                                <span className={styles.text}>{room?.checkin}</span>
+
+                                <span className={styles.title}>Check-Out</span>
+                                <span className={styles.text}>{room?.checkout}</span>
+                            </div>
+
+                            <div className={styles.form}>
+                                <span className={styles.title_form}>Marque já a sua estadia!</span>
+
+                                <Form
+                                    layout="vertical"
+                                    id="reservationForm"
+                                >
+                                    <Row gutter={16}>
+                                        <Col span={12}>
+                                            <Form.Item label="Data estadia" required>
+                                                <DatePicker.RangePicker
+                                                    format={dateFormat}
+                                                    disabledDate={(current) => { return dayjs().subtract(1, 'day') >= current }}
+                                                    getPopupContainer={(trigger) => trigger.parentElement}
+                                                    onChange={(value) => handleFormChange({ target: { value, name: "reservationtime" } })}
+                                                />
+                                            </Form.Item>
+                                        </Col>
+
+                                        <Col span={5}>
+                                            <Form.Item label="Total dias">
+                                                <Input
+                                                    value={newReservation?.days}
+                                                    disabled
+                                                />
+                                            </Form.Item>
+                                        </Col>
+
+                                        <Col span={7}>
+                                            <Form.Item label="Valor total">
+                                                <Input
+                                                    value={`R$ ${newReservation?.totalvalue}`}
+                                                    disabled
+                                                />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+
+                                    <Row gutter={16}>
+                                        <Col span={8}>
+                                            <Form.Item label="Adultos" required>
+                                                <Select
+                                                    value={newReservation?.adults}
+                                                    onChange={(value) => handleFormChange({ target: { value, name: "adults" } })}
+                                                >
+                                                    {adultsOptions.map(option => (
+                                                        <Select.Option key={option} value={option}>
+                                                            {option}
+                                                        </Select.Option>
+                                                    ))}
+                                                </Select>
+                                            </Form.Item>
+                                        </Col>
+
+                                        <Col span={12}>
+                                            <Form.Item label="Crianças (abaixo de 17 anos)">
+                                                <Select
+                                                    value={newReservation?.children}
+                                                    onChange={(value) => handleFormChange({ target: { value, name: "children" } })}
+                                                >
+                                                    {childOptions.map(option => (
+                                                        <Select.Option key={option} value={option}>
+                                                            {option}
+                                                        </Select.Option>
+                                                    ))}
+                                                </Select>
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+
+                                    <Row gutter={16}>
+                                        <Col span={12}>
+                                            <Form.Item label="Contato" required>
+                                                <Input
+                                                    placeholder='(00) 00000-0000'
+                                                    style={{ width: '100%' }}
+                                                    name='contactguest'
+                                                    onChange={(e) => handleFormChange(e)}
+                                                />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+
+                                    <Row gutter={16}>
+                                        <Col span={24}>
+                                            <Form.Item label="Observações">
+                                                <Input.TextArea
+                                                    name='observation'
+                                                    rows={4}
+                                                    onChange={(e) => handleFormChange(e)}
+                                                />
+                                            </Form.Item>
+                                        </Col>
+                                    </Row>
+                                </Form>
+
+                                <button onClick={e => handleSubmit(e)} type='submit' form="reservationForm">Reservar</button>
+                            </div>
                         </div>
                     </div>
-                    
-
-                    <div className='absolute top-6 right-7'>
-                        <button className='bg-white rounded-3xl px-6 py-3 border-2 border-gray-400/55'>
-                            <Image
-                            src={vectorLocalization}
-                            alt="vectorLocalization"
-                            />
-                        </button>
-                    </div>
-                </div>
-
-                <div className='absolute top-[520px] right-[59px] flex justify-between items-center gap-2'>
-                    <div>
-                        <Image
-                        src={roomInside}
-                        alt="Room Inside"
-                        className='rounded-2xl h-24 w-28 shadow-lg'
-                        />
-                    </div>
-                    <div>
-                        <Image
-                        src={roomInside}
-                        alt="Room Inside"
-                        className='rounded-2xl h-24 w-28 shadow-lg'
-                        />
-                    </div>
-                    <div>
-                        <Image
-                        src={roomInside}
-                        alt="Room Inside"
-                        className='rounded-2xl h-24 w-28 shadow-lg'
-                        />
-                    </div>
-                    <div>
-                        <Image
-                        src={roomInside}
-                        alt="Room Inside"
-                        className='rounded-2xl h-24 w-28 shadow-lg'
-                        />
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div className='flex flex-col mt-24'>
-            <div className='flex h-[100px] ms-[325px] me-[320px]'>
-                <div>
-                    <h1 className='font-bold text-3xl'>Informações</h1>
-                    <h2 className=' text-lg'>Esta acomodação possui dois quartos, um dos quartos com cama de casal e TV e o outro com cama de casal e uma de solteiro. Ambos os quartos são equipados com ar-condicionado. Possui também banheiro, cozinha com utensílios básicos e churrasqueira. Na sua parte externa possui sacada com ampla vista para o mar. A acomodação é ideal para até cinco pessoas <span className='text-orange-300'>Ler mais...</span></h2>
-                </div>
-            </div>
-
-            <div className='mt-10 ml-auto me-[320px]'>
-                <button className='px-10 py-3 rounded-3xl bg-orange-400 font-inter font-bold text-white'>
-                    Reserve Agora!
-                </button>
-            </div>
-        </div>
-
-
-</main>
-
-
-
-
-
+                </>
+            }
+        </main>
     );
 }

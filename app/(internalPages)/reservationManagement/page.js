@@ -61,22 +61,25 @@ export default function ReservationManagement() {
       <LateralMenu />
 
       <div className="page">
-        <span className="title">Gerenciamento de Reservas</span>
-
-        <Button onClick={() => showDrawer(null)} type='primary' className='new'>Nova reserva</Button>
-
         {loading ?
           <Spin fullscreen={true} />
           :
-          <Table
-            className="table"
-            columns={reservationColumns}
-            dataSource={tableData}
-            pagination={{
-              total: reservations?.length,
-              showTotal: (total, range) => `${range[0]}-${range[1]} de ${total} reservas`,
-            }}
-          />
+          <>
+            <span className="title">Gerenciamento de Reservas</span>
+
+            <Button onClick={() => showDrawer(null)} type='primary' className='new'>Nova reserva</Button>
+            
+            <Table
+              className="table"
+              columns={reservationColumns}
+              dataSource={tableData}
+              pagination={{
+                total: reservations?.length,
+                showTotal: (total, range) => `${range[0]}-${range[1]} de ${total} reservas`,
+              }}
+            />
+          </>
+
         }
 
         {contextHolder}

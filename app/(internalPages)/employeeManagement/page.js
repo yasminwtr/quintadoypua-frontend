@@ -6,13 +6,9 @@ import LateralMenu from "@/app/components/Sidebar/Sidebar"
 import EditEmployee from '@/app/components/EmployeeDrawer/Drawer';
 import { employeColumns } from '@/app/utils/tablesColumns';
 import useEmployees from '@/app/hooks/useEmployees';
-import useAuth from '@/app/hooks/useAuth'
 
 export default function EmployeeManagement() {
-  const { user } = useAuth()
-
-    // console.log('aaa', user);
-  const { employees, employeeRoles, loading, error, addEmployee, updateEmployee, deleteEmployee} = useEmployees()
+  const { employees, employeeRoles, loading, error, addEmployee, updateEmployee, deleteEmployee } = useEmployees()
   const [open, setOpen] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const initialStateNewEmployee = {
@@ -48,16 +44,20 @@ export default function EmployeeManagement() {
       <div className="page">
         <span className="title">Gerenciamento de Funcionários</span>
 
-        <Button onClick={() => showDrawer(null)} type='primary' className='new'>Novo funcionário</Button>
-
         {loading ?
           <Spin fullscreen={true} />
           :
-          <Table
-            className="table"
-            columns={employeColumns}
-            dataSource={tableData}
-          />
+          <>
+            <span className="title">Gerenciamento de Funcionários</span>
+
+            <Button onClick={() => showDrawer(null)} type='primary' className='new'>Novo funcionário</Button>
+
+            <Table
+              className="table"
+              columns={employeColumns}
+              dataSource={tableData}
+            />
+          </>
         }
 
         <EditEmployee

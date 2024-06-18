@@ -1,5 +1,5 @@
 import styles from "@/app/styles/reservation.module.css";
-import Navbar from '@/app/components/Navbar/navbar.js';
+import Navbar from '@/app/components/Navbar/Navbar.js';
 import useRooms from '@/app/hooks/useRooms';
 
 export default function Reservation() {

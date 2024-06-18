@@ -4,21 +4,15 @@
     height: 100%;
 }
 
-/* .main img{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-} */
-
 .logoImage{
     padding: 0.5%;
 }
 
 .title{
     text-align: center;
-    font-size: 200%;
+    font-size: 26px;
     font-weight: bold;
-    margin-bottom: 2%;
+    margin: 2% 0;
 }
 
 .containerBody{
@@ -27,30 +21,48 @@
     align-items: center;
 }
 
+.containerBody label{
+    margin-bottom: 5px;
+}
+
+.containerBody input{
+    margin-bottom: 6px;
+    font-family: 'Inter';
+    box-sizing: border-box;
+    padding: 0 0.5em;
+}
+
+.eye_button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
 .container{
     background-color: #F79F1A;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 500px;
-    height: 680px;
+    height: 500px;
     border-radius: 3%;
+    box-sizing: border-box;
+    padding: 0 3em;
 }
 
 .span{
-    font-size: 180%;
-    padding-top: 10%;
+    font-size: 20px;
+    padding: 8% 0 2em 0;
     color: #FFFFFF;
     font-weight: bold;
+    text-align: center;
 }
 
 .containerInputName{
     color: #FFFFFF;
     display: flex;
-    font-size: 130%;
+    font-size: 16px;
     width: 85%;
     justify-content: space-between;
-    padding-top: 10%;
 }
 
 .inputName{
@@ -66,16 +78,12 @@
 .inputText{
     border: none;
     height: 35px;
-    width: 200px;
-    border-radius: 15px;
-    color: #F79F1A;
-    font-weight: bold;
+    width: 400px;
+    border-radius: 12px;
     font-size: 16px;
 }
 
 .inputText:focus{
-    color: #F79F1A;
-    font-weight: bold;
     font-size: 16px;
     border:0 none;
     outline: 0;
@@ -86,23 +94,19 @@
     flex-direction: column;
     justify-content: space-between;
     color: #FFFFFF;
-    font-size: 130%;
+    font-size: 16px;
     margin-top: 2%;
 }
 
 .inputEmailTel{
     border: none;
     height: 35px;
-    width: 420px;
-    border-radius: 15px;
-    color: #F79F1A;
-    font-weight: bold;
+    width: 400px;;
+    border-radius: 12px;
     font-size: 16px;
 }
 
 .inputEmailTel:focus{
-    color: #F79F1A;
-    font-weight: bold;
     font-size: 16px;
     border:0 none;
     outline: 0;
@@ -151,15 +155,11 @@
     border: none;
     height: 35px;
     width: 375px;
-    border-radius: 15px;
-    color: #F79F1A;
-    font-weight: bold;
+    border-radius: 12px;
     font-size: 16px;
 }
 
 .inputPasswords:focus{
-    color: #F79F1A;
-    font-weight: bold;
     font-size: 16px;
     border:0 none;
     outline: 0;
@@ -174,7 +174,7 @@
 .button{
     display: flex;
     align-items: center;
-    padding-top: 16%;
+    padding-top: 10%;
 }
 
 .button button:hover{
@@ -195,7 +195,7 @@
 }
 
 .link {
-    margin-top: 4%;
+    margin-top: 6%;
 }
 
 .buttonCadastrar{
@@ -204,9 +204,9 @@
     border: none;
     border-radius: 30px;
     color: #FFFFFF;
-    font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     background-color: #046E1B;
+    font-weight: bold;
 }
 
 .labelPass{

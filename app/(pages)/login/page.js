@@ -1,18 +1,18 @@
 "use client"
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styles from "@/app/styles/login.module.css";
 import Image from 'next/image'
 import EyeOpen from '@/app/assets/images/EyeOpen.png'
 import EyeClose from '@/app/assets/images/EyeClose.png'
-import useAuth from '@/app/hooks/useAuth';
+import AuthContext from '@/app/auth/AuthContext';
+import withoutAuth from '@/app/auth/withoutAuth';
 import { useRouter } from 'next/navigation';
-import api from '@/app/api/api';
 
-export default function Login() {
+function Login() {
     const router = useRouter();
     const [isShow, setIsShow] = useState(false);
     const handlePassword = () => setIsShow(!isShow);
-    const { setTokenToStorage } = useAuth();
+    const { login } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         email: "",
         password: ""
@@ -26,29 +26,9 @@ export default function Login() {
         }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        if (!formData.email || !formData.password) {
-            alert('Please fill in all fields.');
-            return;
-        }
-
-        try {
-            const response = await api.post("/auth/login", formData);
-
-            if (response.status >= 200 && response.status < 300) {
-                const loginData = response.data;
-                setTokenToStorage(loginData.token)
-                router.replace('/')
-
-            } else {
-                alert('Um erro ocorreu durante o login. Por favor tente novamente mais tarde.');
-            }
-
-        } catch (error) {
-            console.log(error);
-        }
+        login(formData);
     };
 
     return (
@@ -78,9 +58,9 @@ export default function Login() {
                                         <input type={isShow ? "text" : "password"} id="password" name="password" className={styles.inputPasswords}
                                             value={formData.password}
                                             onChange={handleChange}></input>
-                                        <button onClick={handlePassword} type="button">
-                                            {isShow && <Image src={EyeClose} width={40} alt="eye photo open two" />}
-                                            {!isShow && <Image src={EyeOpen} width={40} alt="eye photo open two" />}
+                                        <button onClick={handlePassword} type="button" className={styles.eye_button}>
+                                            {isShow && <Image src={EyeClose} width={30} alt="eye photo open two" />}
+                                            {!isShow && <Image src={EyeOpen} width={30} alt="eye photo open two" />}
                                         </button>
                                     </div>
                                 </div>
@@ -90,7 +70,7 @@ export default function Login() {
                                     <button className={styles.buttonCadastrar} type="submit" onClick={(e) => handleSubmit(e)}>Login</button>
                                 </div>
                                 <div className={styles.link}>
-                                    <a href="/signup">Ainda não possui uma conta? Faça seu cadastro aqui!</a>
+                                    <a onClick={() => router.push('/signup')}>Não possui uma conta? Faça seu cadastro aqui!</a>
                                 </div>
                             </div>
                         </div>
@@ -100,3 +80,5 @@ export default function Login() {
         </main>
     );
 }
+
+export default withoutAuth(Login);

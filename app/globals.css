@@ -122,9 +122,16 @@ nav a{
   display: flex;
 }
 
+button, a{
+  cursor: pointer;
+  transition: 0.5s;
+  font-family: 'Inter';
+}
+
 .nav-links a{
   display: block;
   color: #000 !important;
+  cursor: pointer;
 }
 
 #login-nav{
@@ -135,6 +142,7 @@ nav a{
   padding: 8px 30px;
   border-radius: 20px;
   border: 0;
+  cursor: pointer;
 }
 
 #logout-nav{

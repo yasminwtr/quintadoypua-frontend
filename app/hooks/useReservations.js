@@ -12,14 +12,6 @@ const useReservations = () => {
     const [error, setError] = useState(null);
     const [messageApi, contextHolder] = notification.useNotification();
 
-    const alertMessage = (type, message, description, placement) => {
-        messageApi[type]({
-            message: message,
-            description: description,
-            placement: placement ? placement : 'topRight',
-        });
-    };
-
     const fetchReservations = async () => {
         try {
             const response = await api.get('/reservation');
@@ -69,18 +61,22 @@ const useReservations = () => {
                 adults: reservation.adults,
                 children: reservation.children,
                 totalValue: reservation.totalvalue,
-                statusId: !reservation.clientid ? 3 : 1, // confirmada ou aguardando pagto
+                statusId: 3, // confirmada 
                 internalReservation: reservation.internalreservation,
-                // internalReservation: reservation.internalReservation, -> qnd houver id do funcionario logado, deve ser true. e qnd n houver, false. tirar do newstate dps lá
             });
 
-            alertMessage('success', 'Operação realizada com sucesso!', 'Reserva cadastrada.');
-            fetchReservations();
-            onClose();
+            alert('cadastrada')
+            if (reservation.internalreservation === true) {
+                notification.success({ message: 'Operação realizada com sucesso!', description: 'Reserva cadastrada.' })
+                fetchReservations();
+                onClose();
+            } else {
+                notification.success({ message: 'Operação realizada com sucesso!', description: 'A sua estadia foi reservada.' })
+            }
 
         } catch (error) {
             if (error.response) {
-                alertMessage('error', `Ocorreu um erro ${error.response.status} ao realizar a operação.`, 'Por favor tente novamente ou contate o administrador do site.');
+                notification.error({ message: `Ocorreu um erro ${error.response.status} ao realizar a operação.`, description: 'Por favor tente novamente ou contate o administrador do site.' })
             }
             console.log(error);
         }
@@ -95,13 +91,13 @@ const useReservations = () => {
                 statusId: checkIn ? 5 : 6,
             });
 
-            alertMessage('success', 'Operação realizada com sucesso!', checkIn ? 'Check-in registrado e status atualizado.' : 'Check-out registrado e status atualizado.');
+            notification.success({ message: 'Operação realizada com sucesso!', description: `${checkIn ? 'Check-in registrado e status atualizado.' : 'Check-out registrado e status atualizado.'}` })
             fetchReservations();
             onClose();
 
         } catch (error) {
             if (error.response) {
-                alertMessage('error', `Ocorreu um erro ${error.response.status} ao realizar a operação.`, 'Por favor tente novamente ou contate o administrador do site.');
+                notification.error({ message: `Ocorreu um erro ${error.response.status} ao realizar a operação.`, description: 'Por favor tente novamente ou contate o administrador do site.' })
             }
         }
     };
@@ -112,13 +108,13 @@ const useReservations = () => {
                 statusId: statusId
             });
 
-            alertMessage('success', 'Operação realizada com sucesso!', `A reserva foi ${status}.`);
+            notification.success({ message: 'Operação realizada com sucesso!', description: `A reserva foi ${status}.` })
             fetchReservations();
             onClose()
 
         } catch (error) {
             if (error.response) {
-                alertMessage('error', `Ocorreu um erro ${error.response.status} ao realizar a operação.`, 'Por favor tente novamente ou contate o administrador do site.');
+                notification.error({ message: `Ocorreu um erro ${error.response.status} ao realizar a operação.`, description: 'Por favor tente novamente ou contate o administrador do site.' })
             }
         }
     };
