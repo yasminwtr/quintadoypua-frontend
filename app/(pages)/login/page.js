@@ -59,8 +59,8 @@ function Login() {
                                             value={formData.password}
                                             onChange={handleChange}></input>
                                         <button onClick={handlePassword} type="button" className={styles.eye_button}>
-                                            {isShow && <Image src={EyeClose} width={30} alt="eye photo open two" />}
-                                            {!isShow && <Image src={EyeOpen} width={30} alt="eye photo open two" />}
+                                            {isShow && <Image src={EyeClose} width={40} alt="eye photo open two" />}
+                                            {!isShow && <Image src={EyeOpen} width={40} alt="eye photo open two" />}
                                         </button>
                                     </div>
                                 </div>

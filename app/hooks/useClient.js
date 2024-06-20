@@ -60,7 +60,7 @@ const useClient = () => {
             const response = await api.post(`/client/${client.id}`, {
                 name: client.name,
                 email: client.email,
-                password: client.password
+                password: client.password == undefined ? "" : client.password
             });
             notification.success({ message: 'Operação realizada com sucesso!', description: 'Dados atualizados.' })
         } catch (error) {
