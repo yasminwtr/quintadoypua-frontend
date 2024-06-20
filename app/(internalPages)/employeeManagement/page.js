@@ -42,8 +42,7 @@ export default function EmployeeManagement() {
       <LateralMenu />
 
       <div className="page">
-        <span className="title">Gerenciamento de Funcionários</span>
-
+        
         {loading ?
           <Spin fullscreen={true} />
           :

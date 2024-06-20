@@ -18,6 +18,10 @@ export default function EditEmployee({ selectedEmployee, employeeRoles, newEmplo
             console.log('funcionario salvo!');
             addEmployee(newEmployee)
         } else {
+            newEmployee.name = newEmployee.name == "" ? selectedEmployee.name : newEmployee.name;
+            newEmployee.password = newEmployee.password == "" ? selectedEmployee.password : newEmployee.password;
+            newEmployee.email = newEmployee.email == "" ? selectedEmployee.email : newEmployee.email;
+            newEmployee.positionid = newEmployee.positionid == "" ? selectedEmployee.positionid : newEmployee.positionid;
             console.log('Funcionario editado!');
             updateEmployee(newEmployee, selectedEmployee.id)
         }

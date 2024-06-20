@@ -1,7 +1,7 @@
 "use client"
 import { Col, Input, Form, Row, Select, Checkbox } from 'antd';
 
-export default function EditReservation({ employee, employeeRoles, newEmployee, isRegistration, handleFormChange }) {
+export default function EditReservation({employee, employeeRoles, newEmployee, isRegistration, handleFormChange, selectedEmployee}) {
     return (
         <Form layout="vertical">
             <Row gutter={16}>
@@ -24,9 +24,10 @@ export default function EditReservation({ employee, employeeRoles, newEmployee, 
                     >
                         <Input
                             name='name'
-                            defaultValue={employee?.name || newEmployee?.name}
+                            value={employee?.name || newEmployee?.name}
                             onChange={(e) => handleFormChange(e)}
                         />
+
                     </Form.Item>
                 </Col>
 
@@ -36,7 +37,7 @@ export default function EditReservation({ employee, employeeRoles, newEmployee, 
                         required
                     >
                         <Select
-                            defaultValue={employee?.positionid || newEmployee?.positionid}
+                            value={employee?.positionid || newEmployee?.positionid}
                             onChange={(value) => handleFormChange({ target: { value, name: "positionid" } })}
                         >
                             <Select.Option value=''>Selecione um cargo</Select.Option>
@@ -56,7 +57,7 @@ export default function EditReservation({ employee, employeeRoles, newEmployee, 
                     >
                         <Input
                             name='email'
-                            defaultValue={employee?.email || newEmployee?.email}
+                            value={employee?.email || newEmployee?.email}
                             onChange={(e) => handleFormChange(e)}
                         />
                     </Form.Item>
