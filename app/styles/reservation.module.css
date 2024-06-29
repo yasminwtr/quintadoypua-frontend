@@ -38,7 +38,7 @@
 
 .options {
     margin-top: 2em;
-    display: flex;
+    display: grid;
     margin-right: 8em;
     margin-left: 5em;
 }
@@ -61,7 +61,7 @@
 }
 
 .room div:nth-child(2) {
-    padding: 0em 1em 1em 1em;
+    padding: 0em 2em 1em 1em;
 }
 
 .room div:nth-child(2) span:nth-child(1) {
@@ -73,7 +73,7 @@
 .room div:nth-child(2) span:nth-child(2) {
     font-size: 14px;
     text-decoration: underline;
-    color: #F79F1A;
+    color: #f79f1a;
     cursor: pointer;
 }
 

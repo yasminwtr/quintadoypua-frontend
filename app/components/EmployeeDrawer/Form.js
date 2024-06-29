@@ -24,7 +24,7 @@ export default function EditReservation({employee, employeeRoles, newEmployee, i
                     >
                         <Input
                             name='name'
-                            value={employee?.name || newEmployee?.name}
+                            defaultValue={employee?.name || newEmployee?.name}
                             onChange={(e) => handleFormChange(e)}
                         />
 
@@ -37,7 +37,7 @@ export default function EditReservation({employee, employeeRoles, newEmployee, i
                         required
                     >
                         <Select
-                            value={employee?.positionid || newEmployee?.positionid}
+                            defaultValue={employee?.positionid || newEmployee?.positionid}
                             onChange={(value) => handleFormChange({ target: { value, name: "positionid" } })}
                         >
                             <Select.Option value=''>Selecione um cargo</Select.Option>
@@ -57,7 +57,7 @@ export default function EditReservation({employee, employeeRoles, newEmployee, i
                     >
                         <Input
                             name='email'
-                            value={employee?.email || newEmployee?.email}
+                            defaultValue={employee?.email || newEmployee?.email}
                             onChange={(e) => handleFormChange(e)}
                         />
                     </Form.Item>

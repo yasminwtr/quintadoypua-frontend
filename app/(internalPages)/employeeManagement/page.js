@@ -24,6 +24,7 @@ export default function EmployeeManagement() {
     setNewEmployee(initialStateNewEmployee)
     setOpen(true);
   };
+  
   const onClose = () => {
     setOpen(false);
   };
