@@ -13,9 +13,16 @@
     font-size: 35px;
     display: block;
     margin-bottom: 0em;
-    margin-top: 3.5em;
+    margin-top: 3em;
     margin-left: 6.5em;
     margin-right: 32.3em;
+}
+
+.link{
+    font-size: 14px;
+    text-decoration: underline;
+    color: #f79f1a;
+    cursor: pointer;
 }
 
 .buttonAdd {
@@ -37,9 +44,10 @@
 }
 
 .options {
-    margin-top: 2em;
-    display: grid;
-    margin-right: 8em;
+    margin-top: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: 20em;
     margin-left: 5em;
 }
 
@@ -48,13 +56,13 @@
     border-radius: 10px;
     width: 25%;
     margin-left: 8%;
-    
+    margin-top: 30px;
 }
 
 .room div:nth-child(1) {
     background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
     background-size: 100%;
-    width: 100%;
+    width: 405px;
     height: 200px;
     border-radius: 10px 10px 0 0;
     
@@ -70,7 +78,7 @@
     display: flex;
 }
 
-.room div:nth-child(2) span:nth-child(2) {
+.room div:nth-child(2) a:nth-child(2) {
     font-size: 14px;
     text-decoration: underline;
     color: #f79f1a;

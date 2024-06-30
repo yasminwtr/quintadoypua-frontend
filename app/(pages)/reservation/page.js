@@ -4,6 +4,7 @@ import { TbEdit } from "react-icons/tb";
 import styles from "@/app/styles/reservation.module.css";
 import Navbar from '@/app/components/Navbar/Navbar.js';
 import { Table, Spin, Button } from 'antd';
+import { useRouter } from 'next/navigation';
 import useRooms from '@/app/hooks/useRooms';
 import EditRoomForm from "@/app/components/roomDrawer/Drawer";
 import { roomColumns } from '@/app/utils/tablesColumns';
@@ -12,6 +13,7 @@ import { roomColumns } from '@/app/utils/tablesColumns';
 export default function Reservation() {
         const { rooms, loading, error, addRoom, updateRoom, deleteRoom } = useRooms()
         const [open, setOpen] = useState(false);
+        const router = useRouter();
         const [selectedRoom, setSeletedRoom] = useState(null);
         const initialStateNewRoom = {
             name: '',
@@ -54,7 +56,7 @@ export default function Reservation() {
                     <div></div>
                     <div>
                       <span>{room.name}<TbEdit size={24} color={'#5e0606ec'} onClick={() => showDrawer(room)}/></span>
-                      <span>Ver acomodação</span>
+                      <a className='link' onClick={() => router.push('/roomDetail')}>Ver acomodação</a>
                     </div>
                   </div>
                 ))
