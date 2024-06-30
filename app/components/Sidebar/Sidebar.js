@@ -42,15 +42,6 @@ export default function Sidebar() {
 
             <Tooltip
                 placement="right"
-                title="Minha conta"
-                onClick={() => router.push('/userEdit')}
-                className={pathname === "/userEdit" ? styles.active : ''}
-            >
-                <UserOutlined style={{ fontSize: '26px', color: '#fff' }} />
-            </Tooltip>
-
-            <Tooltip
-                placement="right"
                 title="Sair"
                 onClick={logout}
             >

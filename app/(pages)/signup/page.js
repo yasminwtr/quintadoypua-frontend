@@ -31,11 +31,6 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.password || !formData.name) {
-      alert('Por favor preencha todos os campos.');
-      return;
-    }
-
     try {
       const response = await api.post("/client/register", {
         email: formData.email,

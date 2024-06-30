@@ -49,11 +49,6 @@ export const AuthProvider = ({ children }) => {
     };
 
     const login = async (formData) => {
-        if (!formData.email || !formData.password) {
-            alert('Por favor preencha todos os campos.');
-            return;
-        }
-
         try {
             const response = await api.post("/auth/login", formData);
 
